@@ -1,9 +1,12 @@
 body {
-    background-color: rgb(255, 255, 165);
+    background-color: rgb(210, 210, 75);
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font: size 35px;;
 }
 
 .image{
-    border: 5px solid green;
+    border: 5px solid rgb(240, 240, 14);
     border-radius: 10px;
     height: 400px;
 }
@@ -16,4 +19,5 @@ body {
     padding: 5px;
     border-radius: 5px;
     box-shadow: 2px 3px #888888;
+    font-weight: 600 ; 
 }
