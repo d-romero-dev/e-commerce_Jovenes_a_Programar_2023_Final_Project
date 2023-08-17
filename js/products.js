@@ -46,11 +46,10 @@ function mostrarListaItems(listaDeItems) {
  * los objetos Product de la Category cars (id 101)
  *
  */
-async function printAllcars() {
+async function printAllCars() {
   try {
     const categoriaAutos = await getCars();
-    // llamar a todas funciones necesarias
-    listItems();
+    mostrarListaItems(categoriaAutos);
   } catch (error) {
     alert(error);
   }
@@ -58,5 +57,5 @@ async function printAllcars() {
 
 // Llamados a las funciones luego de que el DOM se cargue
 document.addEventListener('DOMContentLoaded', () => {
-  printAllcars();
+  printAllCars();
 });
