@@ -33,7 +33,10 @@ function generarElementoListaItems(listaDeItems) {
  *
  * Busca y elimina la alerta en rojo de "Funcionalidad en desarrollo".
  */
-function eliminarEnDesarrollo() {}
+function eliminarEnDesarrollo() {
+  let alerta = document.getElementsByClassName("alert alert-danger text-center");
+  alerta[0].remove();
+}
 
 function mostrarListaItems(listaDeItems) {
   const elementoDelDom = generarElementoListaItems(listaDeItems);
@@ -57,5 +60,6 @@ async function printAllCars() {
 
 // Llamados a las funciones luego de que el DOM se cargue
 document.addEventListener('DOMContentLoaded', () => {
+  eliminarEnDesarrollo();
   printAllCars();
 });
