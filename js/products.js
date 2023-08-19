@@ -5,9 +5,19 @@
  * Retorna una promesa que al cumplirse devuelve un objeto del tipo Category
  */
 async function getCars() {
-  return fetch(
-    'https://japceibal.github.io/emercado-api/cats_products/101.json'
-  ).then((response) => response.json());
+  const idCategoryCars = 101; // id de la categoría autos
+  try {
+    // Pide a la API la lista de productos en la categoría espera a que
+    // se resuelva la promesa y guarda la respuesta "cruda" en una constante
+    const respuestaAPI = await fetch(
+      `https://japceibal.github.io/emercado-api/cats_products/${idCategoryCars}.json`
+    );
+    // Parsea la respuesta y la retorna
+    // Nota: En realidad retorna una promesa (usar await o .then())
+    return respuestaAPI.json();
+  } catch (error) {
+    alert(error);
+  }
 }
 
 /** Generar elemento de item
@@ -34,7 +44,9 @@ function generarElementoListaItems(listaDeItems) {
  * Busca y elimina la alerta en rojo de "Funcionalidad en desarrollo".
  */
 function eliminarEnDesarrollo() {
-  let alerta = document.getElementsByClassName("alert alert-danger text-center");
+  let alerta = document.getElementsByClassName(
+    'alert alert-danger text-center'
+  );
   alerta[0].remove();
 }
 
