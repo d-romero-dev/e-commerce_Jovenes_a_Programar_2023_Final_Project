@@ -26,7 +26,16 @@ async function getCars() {
  * Retorna un elemento del DOM con las caracteristicas de un auto.
  * Ejemplo: que retorne un elem tal que elem.innerHTML == <div>Marca: Wolkswagen Modelo: Gol<div>.
  */
-function generarElementoDeProduct(producto) {}
+function generarElementoDeProduct(producto) {
+    let htmlContentToAppend = `
+    
+    ` /*aca va el contenido html que se generara para mostrar el producto*/
+    let product = document.createElement("div")//aca se crea el elemento del dom que incluira el contenido html
+    product.id = producto.id // se agrega el id al div 
+    product.innerHTML = htmlContentToAppend//aca se actualiza el contenido del elemento con el contenido de htmlContentToAppends
+    return product;
+}
+
 
 /**
  * Genera un elemento del DOM con una lista de elementos con datos
