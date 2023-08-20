@@ -5,6 +5,39 @@
   font-family: 'Verdana', serif !important;
 }
 
+.mouseHover:hover {
+  transform: scale(1.05);
+  transition: all 0.5s;
+  box-shadow: 4px 6px 20px black;
+}
+.btn-outline-primary :hover{
+  color:blue;
+}
+.btn-outline-danger :hover{
+  color: red;
+}
+.btn-outline-warning :hover{
+ color: rgb(255, 255, 0);
+}
+nav a {
+  text-decoration: none;
+}
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
 .jumbotron .display-4 {
   font-weight: bold;
 }
@@ -189,6 +222,7 @@ a.custom-card:hover {
   color: orange;
 }
 
+/* Fondo animado */ 
 #home {
   clip-path: url(#cache);
 }
