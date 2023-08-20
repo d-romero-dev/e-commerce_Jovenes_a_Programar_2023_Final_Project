@@ -5,9 +5,19 @@
  * Retorna una promesa que al cumplirse devuelve un objeto del tipo Category
  */
 async function getCars() {
-  return fetch(
-    'https://japceibal.github.io/emercado-api/cats_products/101.json'
-  ).then((response) => response.json());
+  const idCategoryCars = 101; // id de la categoría autos
+  try {
+    // Pide a la API la lista de productos en la categoría espera a que
+    // se resuelva la promesa y guarda la respuesta "cruda" en una constante
+    const respuestaAPI = await fetch(
+      `https://japceibal.github.io/emercado-api/cats_products/${idCategoryCars}.json`
+    );
+    // Parsea la respuesta y la retorna
+    // Nota: En realidad retorna una promesa (usar await o .then())
+    return respuestaAPI.json();
+  } catch (error) {
+    alert(error);
+  }
 }
 
 /** Generar elemento de item
@@ -16,7 +26,16 @@ async function getCars() {
  * Retorna un elemento del DOM con las caracteristicas de un auto.
  * Ejemplo: que retorne un elem tal que elem.innerHTML == <div>Marca: Wolkswagen Modelo: Gol<div>.
  */
-function generarElementoDeProduct(producto) {}
+function generarElementoDeProduct(producto) {
+    let htmlContentToAppend = `
+    
+    ` /*aca va el contenido html que se generara para mostrar el producto*/
+    let product = document.createElement("div")//aca se crea el elemento del dom que incluira el contenido html
+    product.id = producto.id // se agrega el id al div 
+    product.innerHTML = htmlContentToAppend//aca se actualiza el contenido del elemento con el contenido de htmlContentToAppends
+    return product;
+}
+
 
 /**
  * Genera un elemento del DOM con una lista de elementos con datos
@@ -34,7 +53,9 @@ function generarElementoListaItems(listaDeItems) {
  * Busca y elimina la alerta en rojo de "Funcionalidad en desarrollo".
  */
 function eliminarEnDesarrollo() {
-  let alerta = document.getElementsByClassName("alert alert-danger text-center");
+  let alerta = document.getElementsByClassName(
+    'alert alert-danger text-center'
+  );
   alerta[0].remove();
 }
 
