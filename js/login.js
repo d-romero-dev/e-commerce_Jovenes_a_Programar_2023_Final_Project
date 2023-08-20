@@ -1,3 +1,28 @@
+// Function del Login:
+
+function ingresar(){
+
+  let user= document.getElementById('user').value;
+
+  let pass= document.getElementById('pass').value;
+
+  if(user.length>0 && pass.length>0){
+
+    window.location.href="index.html";
+  }
+}
+
+// EventListener para detectar el click en login.html y redirigir a index.html
+
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('login').addEventListener('click', function(){
+    ingresar();
+  })
+})
+
+
+
+
 /**
  * Obtener estado de logged del usuario
  *
