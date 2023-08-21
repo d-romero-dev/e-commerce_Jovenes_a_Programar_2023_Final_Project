@@ -41,21 +41,6 @@ function generarElementoDeProduct(product) {
     </section>
   </li>`; /*aca va el contenido html que se generara para mostrar el producto*/
 
-  // <div class="list-group-item list-group-item-action">
-  //     <div class="row">
-  //       <div class="col-3">
-  //         <img scr = "${product.image}">
-  //       </div>
-  //       <div class="col">
-  //         <div class="d-flex w-100 justify-content-between">
-  //           <div class="mb-1">
-  //           <h4> "${product.soldCount}" </h4>
-  //           <p> "${product.description}" </p>
-  //         </div>
-  //         <small class="text-muted"> " ${product.name} - ${product.currency} ${product.cost} " </small>
-  //       </div>
-  //     </div>
-  // </div>
 
   let productDOM = document.createElement('div'); //aca se crea el elemento del dom que incluira el contenido html
   productDOM.id = product.id; // se agrega el id al div
