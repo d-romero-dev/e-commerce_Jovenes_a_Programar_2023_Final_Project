@@ -27,14 +27,36 @@ async function getCars() {
  * Ejemplo: que retorne un elem tal que elem.innerHTML == <div>Marca: Wolkswagen Modelo: Gol<div>.
  */
 function generarElementoDeProduct(product) {
-  let htmlContentToAppend = `<li>
-    <div>${product.name}</div>
-    <div>${product.description}</div>
-    <div>${product.currency}</div>
-    <div>${product.cost}</div>
-    <div>${product.soldCount}</div>
-    <img src=${product.image}>
+  let htmlContentToAppend = `<li class="container">
+    <section class="row d-flex w-100 justify-content-between">
+      <div class="col">${product.name}</div>
+      <div class="col">${product.currency}${product.cost}</div>
+    </section>
+    <section class="row">
+      <div class="col">
+        <div>${product.description}</div>
+        <div>Cantidad vendidos: ${product.soldCount}</div>
+      </div>
+      <div class="col"><img class="col-4" src=${product.image}></div>
+    </section>
   </li>`; /*aca va el contenido html que se generara para mostrar el producto*/
+
+  // <div class="list-group-item list-group-item-action">
+  //     <div class="row">
+  //       <div class="col-3">
+  //         <img scr = "${product.image}">
+  //       </div>
+  //       <div class="col">
+  //         <div class="d-flex w-100 justify-content-between">
+  //           <div class="mb-1">
+  //           <h4> "${product.soldCount}" </h4>
+  //           <p> "${product.description}" </p>
+  //         </div>
+  //         <small class="text-muted"> " ${product.name} - ${product.currency} ${product.cost} " </small>
+  //       </div>
+  //     </div>
+  // </div>
+
   let productDOM = document.createElement('div'); //aca se crea el elemento del dom que incluira el contenido html
   productDOM.id = product.id; // se agrega el id al div
   productDOM.innerHTML = htmlContentToAppend; //aca se actualiza el contenido del elemento con el contenido de htmlContentToAppends
@@ -51,6 +73,7 @@ function generarElementoListaItems(listaDeItems) {
   const listaProductos = document.createElement('ol');
   for (let i = 0; i < listaDeItems.length; i++)
     listaProductos.appendChild(generarElementoDeProduct(listaDeItems[i]));
+  listaProductos.style= "list-style: none";
   return listaProductos;
 }
 
