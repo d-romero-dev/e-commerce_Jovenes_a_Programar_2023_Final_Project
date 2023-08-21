@@ -39,3 +39,30 @@ let getJSONData = function(url){
         return result;
     });
 }
+/**
+ * Obtener estado de logged del usuario
+ *
+ * Obtiene del localStorage el valor de la data de key 'userIsLogged' en el localStorage
+ */
+function userIsLogged() {
+  return localStorage.getItem('userIsLogged') === "true";
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  if (!userIsLogged()) {
+    window.location.href = "login.html";
+  }
+  botonCerrarSesion= document.getElementById("cerrarSesion")
+  botonCerrarSesion.addEventListener("click", () => {
+    setUserIsLogged(false);
+    window.location.href = "login.html";
+  } )
+}); 
+
+function setUserIsLogged(isLogged) {
+  // Doble negación para evita asignar algo que no sea Bool
+  localStorage.setItem('userIsLogged', !!isLogged);
+}
+
+
+
