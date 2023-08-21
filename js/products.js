@@ -26,16 +26,20 @@ async function getCars() {
  * Retorna un elemento del DOM con las caracteristicas de un auto.
  * Ejemplo: que retorne un elem tal que elem.innerHTML == <div>Marca: Wolkswagen Modelo: Gol<div>.
  */
-function generarElementoDeProduct(producto) {
-    let htmlContentToAppend = `
-    
-    ` /*aca va el contenido html que se generara para mostrar el producto*/
-    let product = document.createElement("div")//aca se crea el elemento del dom que incluira el contenido html
-    product.id = producto.id // se agrega el id al div 
-    product.innerHTML = htmlContentToAppend//aca se actualiza el contenido del elemento con el contenido de htmlContentToAppends
-    return product;
+function generarElementoDeProduct(product) {
+  let htmlContentToAppend = `<li>
+    <div>${product.name}</div>
+    <div>${product.description}</div>
+    <div>${product.currency}</div>
+    <div>${product.cost}</div>
+    <div>${product.soldCount}</div>
+    <img src=${product.image}>
+  </li>`; /*aca va el contenido html que se generara para mostrar el producto*/
+  let productDOM = document.createElement('div'); //aca se crea el elemento del dom que incluira el contenido html
+  productDOM.id = product.id; // se agrega el id al div
+  productDOM.innerHTML = htmlContentToAppend; //aca se actualiza el contenido del elemento con el contenido de htmlContentToAppends
+  return productDOM;
 }
-
 
 /**
  * Genera un elemento del DOM con una lista de elementos con datos
@@ -44,7 +48,10 @@ function generarElementoDeProduct(producto) {
  * Lista en pantalla una lista de items
  */
 function generarElementoListaItems(listaDeItems) {
-  // iterar sobre mostrarAuto
+  const listaProductos = document.createElement('ol');
+  for (let i = 0; i < listaDeItems.length; i++)
+    listaProductos.appendChild(generarElementoDeProduct(listaDeItems[i]));
+  return listaProductos;
 }
 
 /**
@@ -60,9 +67,9 @@ function eliminarEnDesarrollo() {
 }
 
 function mostrarListaItems(listaDeItems) {
-  const elementoDelDom = generarElementoListaItems(listaDeItems);
-  const contenedorDeLista = document.getElementById('contenedor-de-lista');
-  // ... seguir
+  const listaDeProductos = generarElementoListaItems(listaDeItems);
+  const contenedorDeLista = document.getElementById('contenedor-productos');
+  contenedorDeLista.appendChild(listaDeProductos);
 }
 
 /**
@@ -73,7 +80,7 @@ function mostrarListaItems(listaDeItems) {
 async function printAllCars() {
   try {
     const categoriaAutos = await getCars();
-    mostrarListaItems(categoriaAutos);
+    mostrarListaItems(categoriaAutos.products);
   } catch (error) {
     alert(error);
   }
