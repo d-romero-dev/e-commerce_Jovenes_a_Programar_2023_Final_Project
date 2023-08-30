@@ -1,16 +1,17 @@
+
 /**
- * Obtener autos
+ * Obtener productos
  *
- * Le pide a la api el listado de productos de la categoría autos (id 101).
+ * Le pide a la api el listado de productos de la categoría solicitada.
  * Retorna una promesa que al cumplirse devuelve un objeto del tipo Category
  */
-async function getCars() {
-  const idCategoryCars = 101; // id de la categoría autos
+async function getProducts() {
+  const idCategory = localStorage.getItem("catID"); // id de la categoría 
   try {
     // Pide a la API la lista de productos en la categoría espera a que
     // se resuelva la promesa y guarda la respuesta "cruda" en una constante
     const respuestaAPI = await fetch(
-      `https://japceibal.github.io/emercado-api/cats_products/${idCategoryCars}.json`
+      `https://japceibal.github.io/emercado-api/cats_products/${idCategory}.json`
     );
     // Parsea la respuesta y la retorna
     // Nota: En realidad retorna una promesa (usar await o .then())
@@ -85,10 +86,10 @@ function mostrarListaItems(listaDeItems) {
  * los objetos Product de la Category cars (id 101)
  *
  */
-async function printAllCars() {
+async function printAllProducts() {
   try {
-    const categoriaAutos = await getCars();
-    mostrarListaItems(categoriaAutos.products);
+    const categoriaProductos = await getProducts();
+    mostrarListaItems(categoriaProductos.products);
   } catch (error) {
     alert(error);
   }
@@ -97,5 +98,5 @@ async function printAllCars() {
 // Llamados a las funciones luego de que el DOM se cargue
 document.addEventListener('DOMContentLoaded', () => {
   eliminarEnDesarrollo();
-  printAllCars();
+  printAllProducts();
 });
