@@ -99,3 +99,23 @@ document.addEventListener('DOMContentLoaded', () => {
   eliminarEnDesarrollo();
   printAllCars();
 });
+  
+// Buscar productos
+// Obtener una lista de todos los elementos de producto
+const productos = document.querySelectorAll('.custom-card');
+// Obtener el elemento de entrada de búsqueda
+const searchInput = document.getElementById('searchInput');
+// Agregar un evento de entrada al campo de búsqueda
+searchInput.addEventListener('input', function () {
+  const searchTerm = searchInput.ariaValueMax.toLowerCase();
+  // Recorrer todos los elementos de producto y ocultar los que no coinciden con la búsqueda
+  productos.forEach(producto => {
+    const titulo = producto.querySelector('h3').textContent.toLowerCase();
+    const descripcion = producto.querySelector('.card-text').textContent.toLowerCase();
+    if (titulo.includes(searchTerm) || descripcion.includes(searchTerm)) {
+      producto.style.display = 'block';
+    } else {
+      producto.style.display = 'none';
+    }
+  });
+});
