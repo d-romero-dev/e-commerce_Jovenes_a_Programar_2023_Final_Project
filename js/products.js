@@ -178,17 +178,21 @@ function sortProducts(criteria, array) {
  */
 async function getProducts() {
   const idCategory = localStorage.getItem('catID'); // id de la categoría
+  showSpinner();
   try {
     // Pide a la API la lista de productos en la categoría espera a que
     // se resuelva la promesa y guarda la respuesta "cruda" en una constante
     const respuestaAPI = await fetch(
       `https://japceibal.github.io/emercado-api/cats_products/${idCategory}.json`
     );
+    hideSpinner();
     // Parsea la respuesta y la retorna
     // Nota: En realidad retorna una promesa (usar await o .then())
     return respuestaAPI.json();
   } catch (error) {
+    hideSpinner();
     alert(error);
+    return undefined;
   }
 }
 
