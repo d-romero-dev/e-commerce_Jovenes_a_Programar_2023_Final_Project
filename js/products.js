@@ -44,9 +44,9 @@ function parseCountToInt(countValue) {
     countValue != '' &&
     parseInt(countValue) >= 0
   ) {
-    minCount = parseInt(minCount);
+    return parseInt(countValue);
   } else {
-    minCount = undefined;
+    return undefined;
   }
 }
 
@@ -55,8 +55,8 @@ function aplicarFiltros() {
   minCount = document.getElementById('rangeFilterCountMin').value;
   maxCount = document.getElementById('rangeFilterCountMax').value;
 
-  parseCountToInt(minCount);
-  parseCountToInt(maxCount);
+  minCount = parseCountToInt(minCount);
+  maxCount = parseCountToInt(maxCount);
 
   showProductsList();
 }
@@ -106,8 +106,6 @@ function showProductsList() {
 }
 
 function sortAndShowProducts(sortCriteria, productsArrays) {
-  currentSortCriteria = sortCriteria;
-
   if (productsArrays != undefined) {
     productsArray = productsArrays;
   }
