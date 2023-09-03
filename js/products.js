@@ -105,18 +105,6 @@ function showProductsList() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function (e) {
-  getJSONData(
-    'https://japceibal.github.io/emercado-api/cats_products/' + cat + '.json'
-  ).then(function (resultObj) {
-    if (resultObj.status === 'ok') {
-      productsArray = resultObj.data.products;
-      productsArrayInit = resultObj.data.products;
-      showProductsList();
-    }
-  });
-});
-
 function sortAndShowProducts(sortCriteria, productsArrays) {
   currentSortCriteria = sortCriteria;
 
@@ -127,7 +115,7 @@ function sortAndShowProducts(sortCriteria, productsArrays) {
   productsArray = sortProducts(currentSortCriteria, productsArray);
 
   // Muestra la lista de forma ordenada
-  showProductsList();
+  mostrarListaItems();
 }
 
 function sortProducts(criteria, array) {
@@ -291,6 +279,8 @@ function mostrarListaItems(listaDeItems) {
 async function printAllProducts() {
   try {
     const categoriaProductos = await getProducts();
+    productsArray = categoriaProductos.products;
+    productsArrayInit = categoriaProductos.products;
     mostrarListaItems(categoriaProductos.products);
   } catch (error) {
     alert(error);
