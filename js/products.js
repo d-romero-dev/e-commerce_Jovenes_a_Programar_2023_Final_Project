@@ -3,6 +3,7 @@ const ORDER_DESC_BY_PRICE = 'DescPrice';
 const ORDER_BY_PROD_REL = 'Precio';
 let minCount = undefined;
 let maxCount = undefined;
+let searchTerm = undefined; // contenido de la barra de busqueda
 const search = document.querySelector('.Search-input');
 
 // Arrays donde se guardan los datos recibidos:
@@ -180,12 +181,27 @@ function generarElementoDeProduct(product) {
 }
 
 /**
+ * Determina si un producto coincide con el criterio de busqueda de la search bar
+ *
+ * @param {*} producto un producto con titulo y descripcion.
+ * @global searchTerm: el contenido de la barra de busqueda.
+ * @returns {boolean} true si coincide con el criterio de busqueda, false en caso contrario.
+ */
+function coincideConBusqueda(producto) {
+  if (searchTerm === '' || searchTerm === undefined || searchTerm === null)
+    return true;
+  const titulo = producto.name.toLowerCase();
+  const descripcion = producto.description.toLowerCase();
+  return titulo.includes(searchTerm) || descripcion.includes(searchTerm);
+}
+
+/**
  * Recibe un producto como parametro y revisa si cumple todos los filtros,
  * retorna true en caso de satisfacerlos todos los criterios
  */
 function productoCumpleFiltro(product) {
   // Por ahora solo tenemos una condicion
-  return precioDentroDeRango(product);
+  return precioDentroDeRango(product) && coincideConBusqueda(product);
 }
 
 /**
@@ -269,23 +285,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Buscar productos
-// Obtener una lista de todos los elementos de producto
-const productos = document.querySelectorAll('.custom-card');
 // Obtener el elemento de entrada de búsqueda
 const searchInput = document.getElementById('searchInput');
 // Agregar un evento de entrada al campo de búsqueda
-searchInput.addEventListener('input', function () {
-  const searchTerm = searchInput.ariaValueMax.toLowerCase();
-  // Recorrer todos los elementos de producto y ocultar los que no coinciden con la búsqueda
-  productos.forEach((producto) => {
-    const titulo = producto.querySelector('h3').textContent.toLowerCase();
-    const descripcion = producto
-      .querySelector('.card-text')
-      .textContent.toLowerCase();
-    if (titulo.includes(searchTerm) || descripcion.includes(searchTerm)) {
-      producto.style.display = 'block';
-    } else {
-      producto.style.display = 'none';
-    }
-  });
+searchInput.addEventListener('input', function (e) {
+  searchTerm = e.target.value.toLowerCase(); // Actualiza el valor del searchTerm
+  mostrarListaItems(productsArray);
 });
