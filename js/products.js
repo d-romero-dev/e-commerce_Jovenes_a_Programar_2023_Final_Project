@@ -111,19 +111,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
       showProductsList();
     }
   });
-
-  // Filtro
-  document.getElementById('sortAsc').addEventListener('click', function () {
-    sortAndShowProducts(ORDER_ASC_BY_PRICE);
-  });
-
-  document.getElementById('sortDesc').addEventListener('click', function () {
-    sortAndShowProducts(ORDER_DESC_BY_PRICE);
-  });
-
-  document.getElementById('sortByCount').addEventListener('click', function () {
-    sortAndShowProducts(ORDER_BY_PROD_REL);
-  });
 });
 
 function sortAndShowProducts(sortCriteria, productsArrays) {
@@ -305,6 +292,19 @@ async function printAllProducts() {
 // Llamados a las funciones luego de que el DOM se cargue
 document.addEventListener('DOMContentLoaded', () => {
   eliminarEnDesarrollo();
+
+  // Filtro
+  document.getElementById('sortAsc').addEventListener('click', function () {
+    sortAndShowProducts(ORDER_ASC_BY_PRICE);
+  });
+
+  document.getElementById('sortDesc').addEventListener('click', function () {
+    sortAndShowProducts(ORDER_DESC_BY_PRICE);
+  });
+
+  document.getElementById('sortByCount').addEventListener('click', function () {
+    sortAndShowProducts(ORDER_BY_PROD_REL);
+  });
 
   // Botón limpiar
   document
