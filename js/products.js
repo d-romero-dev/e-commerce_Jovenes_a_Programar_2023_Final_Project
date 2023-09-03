@@ -216,7 +216,7 @@ function generarElementoListaItems(listaDeItems) {
   for (let i = 0; i < listaDeItems.length; i++)
     if (productoCumpleFiltro(listaDeItems[i]))
       listaProductos.appendChild(generarElementoDeProduct(listaDeItems[i]));
-  listaProductos.style = 'list-style: none';
+  listaProductos.style = 'list-style: none; padding-left: 0';
   return listaProductos;
 }
 
