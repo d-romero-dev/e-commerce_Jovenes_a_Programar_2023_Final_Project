@@ -37,6 +37,26 @@ function limpiarFiltros() {
   showProductsList();
 }
 
+// Aplica los filtros del precio
+function aplicarFiltros() {
+  minCount = document.getElementById('rangeFilterCountMin').value;
+  maxCount = document.getElementById('rangeFilterCountMax').value;
+
+  if (minCount != undefined && minCount != '' && parseInt(minCount) >= 0) {
+    minCount = parseInt(minCount);
+  } else {
+    minCount = undefined;
+  }
+
+  if (maxCount != undefined && maxCount != '' && parseInt(maxCount) >= 0) {
+    maxCount = parseInt(maxCount);
+  } else {
+    maxCount = undefined;
+  }
+
+  showProductsList();
+}
+
 //Función para mostrar en pantalla (a través del uso del DOM)
 function showProductsList() {
   let htmlContentToAppend = '';
@@ -104,28 +124,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
   document.getElementById('sortByCount').addEventListener('click', function () {
     sortAndShowProducts(ORDER_BY_PROD_REL);
   });
-
-  // Filtrar productos por mínimo y máximo de precios
-  document
-    .getElementById('rangeFilterCount')
-    .addEventListener('click', function () {
-      minCount = document.getElementById('rangeFilterCountMin').value;
-      maxCount = document.getElementById('rangeFilterCountMax').value;
-
-      if (minCount != undefined && minCount != '' && parseInt(minCount) >= 0) {
-        minCount = parseInt(minCount);
-      } else {
-        minCount = undefined;
-      }
-
-      if (maxCount != undefined && maxCount != '' && parseInt(maxCount) >= 0) {
-        maxCount = parseInt(maxCount);
-      } else {
-        maxCount = undefined;
-      }
-
-      showProductsList();
-    });
 });
 
 function sortAndShowProducts(sortCriteria, productsArrays) {
@@ -307,10 +305,17 @@ async function printAllProducts() {
 // Llamados a las funciones luego de que el DOM se cargue
 document.addEventListener('DOMContentLoaded', () => {
   eliminarEnDesarrollo();
+
   // Botón limpiar
   document
     .getElementById('clearRangeFilter')
     .addEventListener('click', limpiarFiltros);
+
+  // Filtrar productos por mínimo y máximo de precios
+  document
+    .getElementById('rangeFilterCount')
+    .addEventListener('click', aplicarFiltros);
+
   printAllProducts();
 });
 
