@@ -16,6 +16,16 @@ function setProductId(id) {
   window.location = 'product-info.html';
 }
 
+// Acepta un producto como parámetro y retorna si su precio cae dentro del rango filtrado
+function precioDentroDeRango(product) {
+  return (
+    (minCount == undefined ||
+      (minCount != undefined && parseInt(product.cost) >= minCount)) &&
+    (maxCount == undefined ||
+      (maxCount != undefined && parseInt(product.cost) <= maxCount))
+  );
+}
+
 //Función para mostrar en pantalla (a través del uso del DOM)
 function showProductsList() {
   let htmlContentToAppend = '';
@@ -23,12 +33,7 @@ function showProductsList() {
   for (let i = 0; i < productsArray.length; i++) {
     let product = productsArray[i]; // Array de products
 
-    if (
-      (minCount == undefined ||
-        (minCount != undefined && parseInt(product.cost) >= minCount)) &&
-      (maxCount == undefined ||
-        (maxCount != undefined && parseInt(product.cost) <= maxCount))
-    ) {
+    if (productoCumpleFiltro(product)) {
       htmlContentToAppend +=
         `
         <div onclick="setProductId(${product.id})" class="list-group-item list-group-item-action cursor-active">
@@ -245,15 +250,26 @@ function generarElementoDeProduct(product) {
 }
 
 /**
+ * Recibe un producto como parametro y revisa si cumple todos los filtros,
+ * retorna true en caso de satisfacerlos todos los criterios
+ */
+function productoCumpleFiltro(product) {
+  // Por ahora solo tenemos una condicion
+  return precioDentroDeRango(product);
+}
+
+/**
  * Genera un elemento del DOM con una lista de elementos con datos
  * de los Productos a partir de un arreglo de Productos
  *
- * Lista en pantalla una lista de items
+ * Lista en pantalla una lista de items.
+ * Tiene en cuenta los filtros aplicados.
  */
 function generarElementoListaItems(listaDeItems) {
   const listaProductos = document.createElement('ol');
   for (let i = 0; i < listaDeItems.length; i++)
-    listaProductos.appendChild(generarElementoDeProduct(listaDeItems[i]));
+    if (productoCumpleFiltro(listaDeItems[i]))
+      listaProductos.appendChild(generarElementoDeProduct(listaDeItems[i]));
   listaProductos.style = 'list-style: none';
   return listaProductos;
 }
