@@ -37,22 +37,26 @@ function limpiarFiltros() {
   showProductsList();
 }
 
+// Recibe como parametro un valor de Count y lo parsea a int
+function parseCountToInt(countValue) {
+  if (
+    countValue != undefined &&
+    countValue != '' &&
+    parseInt(countValue) >= 0
+  ) {
+    minCount = parseInt(minCount);
+  } else {
+    minCount = undefined;
+  }
+}
+
 // Aplica los filtros del precio
 function aplicarFiltros() {
   minCount = document.getElementById('rangeFilterCountMin').value;
   maxCount = document.getElementById('rangeFilterCountMax').value;
 
-  if (minCount != undefined && minCount != '' && parseInt(minCount) >= 0) {
-    minCount = parseInt(minCount);
-  } else {
-    minCount = undefined;
-  }
-
-  if (maxCount != undefined && maxCount != '' && parseInt(maxCount) >= 0) {
-    maxCount = parseInt(maxCount);
-  } else {
-    maxCount = undefined;
-  }
+  parseCountToInt(minCount);
+  parseCountToInt(maxCount);
 
   showProductsList();
 }
