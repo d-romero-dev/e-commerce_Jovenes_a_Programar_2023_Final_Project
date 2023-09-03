@@ -207,19 +207,36 @@ async function getProducts() {
  * Ejemplo: que retorne un elem tal que elem.innerHTML == <div>Marca: Wolkswagen Modelo: Gol<div>.
  */
 function generarElementoDeProduct(product) {
-  let htmlContentToAppend = `<li class="container">
-    <section class="row d-flex w-100 justify-content-between">
-      <div class="col">${product.name}</div>
-      <div class="col">${product.currency}${product.cost}</div>
-    </section>
-    <section class="row">
-      <div class="col">
-        <div>${product.description}</div>
-        <div>Cantidad vendidos: ${product.soldCount}</div>
+  let htmlContentToAppend =
+    `
+  <div onclick="setProductId(${product.id})" class="list-group-item list-group-item-action cursor-active">
+      <div class="row">
+          <div class="col-3">
+              <img src="` +
+    product.image +
+    `" alt="product image" class="img-thumbnail">
+          </div>
+          <div class="col">
+              <div class="d-flex w-100 justify-content-between">
+                  <div class="mb-1">
+                  <h4>` +
+    product.name +
+    ` - USD ` +
+    product.cost +
+    `</h4> 
+                  <p> ` +
+    product.description +
+    `</p> 
+                  </div>
+                  <small class="text-muted">` +
+    product.soldCount +
+    ` Vendidos</small> 
+              </div>
+
+          </div>
       </div>
-      <div class="col"><img class="col-4" src=${product.image}></div>
-    </section>
-  </li>`; /*aca va el contenido html que se generara para mostrar el producto*/
+  </div>
+  `; /*aca va el contenido html que se generara para mostrar el producto*/
 
   let productDOM = document.createElement('div'); //aca se crea el elemento del dom que incluira el contenido html
   productDOM.id = product.id; // se agrega el id al div
