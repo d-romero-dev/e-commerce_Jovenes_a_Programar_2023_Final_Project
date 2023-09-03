@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (userIsLogged()) {
     const username = localStorage.getItem("user");
     // Si está logueado muestra el nombre guardado en el almacenamiento local 
-    document.getElementById("cerrarSesion").textContent = username;
+    document.getElementById("cerrarSesion").textContent = "Cerrar Sesión de " + username[0].toUpperCase() + username.slice(1).toLowerCase();
   }
 
   document.getElementById('login').addEventListener('click', function () {
