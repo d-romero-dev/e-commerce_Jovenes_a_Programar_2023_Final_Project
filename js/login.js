@@ -7,7 +7,10 @@ function ingresar(){
   let pass= document.getElementById('pass').value;
 
   if(user.length>0 && pass.length>0){
+    localStorage.setItem("user", user);
+    
     setUserIsLogged(true)
+
     window.location.href="index.html";
   }
 }
@@ -18,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function(){
   if (userIsLogged()) {
     window.location.href = "index.html";
   }
+  
   document.getElementById('login').addEventListener('click', function(){
     ingresar();
   })
