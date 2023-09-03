@@ -1,22 +1,19 @@
-const cat = localStorage.getItem('catID');
 const ORDER_ASC_BY_PRICE = 'AscPrice';
 const ORDER_DESC_BY_PRICE = 'DescPrice';
 const ORDER_BY_PROD_REL = 'Precio';
-let currentSortCriteria = undefined;
 let minCount = undefined;
 let maxCount = undefined;
 const search = document.querySelector('.Search-input');
 
-// Arrays donde se cargan los datos recibidos:
+// Arrays donde se guardan los datos recibidos:
 let productsArray = [];
-let productsArrayInit = [];
 
 function setProductId(id) {
   localStorage.setItem('productID', id);
   window.location = 'product-info.html';
 }
 
-// Acepta un producto como parámetro y retorna si su precio cae dentro del rango filtrado
+// Acepta un producto como parámetro y retorna si su precio se encuentra dentro del rango filtrado:
 function precioDentroDeRango(product) {
   return (
     (minCount == undefined ||
@@ -26,7 +23,7 @@ function precioDentroDeRango(product) {
   );
 }
 
-// Limpiar filtros, es llamada por el boton limpiar
+// Limpiar filtros, es llamada por el boton limpiar:
 function limpiarFiltros() {
   document.getElementById('rangeFilterCountMin').value = '';
   document.getElementById('rangeFilterCountMax').value = '';
@@ -34,10 +31,10 @@ function limpiarFiltros() {
   minCount = undefined;
   maxCount = undefined;
 
-  showProductsList();
+  mostrarListaItems(productsArray);
 }
 
-// Recibe como parametro un valor de Count y lo parsea a int
+// Recibe como parametro un valor de Count y lo parsea a Int:
 function parseCountToInt(countValue) {
   if (
     countValue != undefined &&
@@ -58,51 +55,7 @@ function aplicarFiltros() {
   minCount = parseCountToInt(minCount);
   maxCount = parseCountToInt(maxCount);
 
-  showProductsList();
-}
-
-//Función para mostrar en pantalla (a través del uso del DOM)
-function showProductsList() {
-  let htmlContentToAppend = '';
-
-  for (let i = 0; i < productsArray.length; i++) {
-    let product = productsArray[i]; // Array de products
-
-    if (productoCumpleFiltro(product)) {
-      htmlContentToAppend +=
-        `
-        <div onclick="setProductId(${product.id})" class="list-group-item list-group-item-action cursor-active">
-            <div class="row">
-                <div class="col-3">
-                    <img src="` +
-        product.image +
-        `" alt="product image" class="img-thumbnail">
-                </div>
-                <div class="col">
-                    <div class="d-flex w-100 justify-content-between">
-                        <div class="mb-1">
-                        <h4>` +
-        product.name +
-        ` - USD ` +
-        product.cost +
-        `</h4> 
-                        <p> ` +
-        product.description +
-        `</p> 
-                        </div>
-                        <small class="text-muted">` +
-        product.soldCount +
-        ` Vendidos</small> 
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        `;
-    }
-    document.getElementById('cat-list-container').innerHTML =
-      htmlContentToAppend;
-  }
+  mostrarListaItems(productsArray);
 }
 
 function sortAndShowProducts(sortCriteria, productsArrays) {
@@ -110,10 +63,10 @@ function sortAndShowProducts(sortCriteria, productsArrays) {
     productsArray = productsArrays;
   }
 
-  productsArray = sortProducts(currentSortCriteria, productsArray);
+  productsArray = sortProducts(sortCriteria, productsArray);
 
   // Muestra la lista de forma ordenada
-  mostrarListaItems();
+  mostrarListaItems(productsArray);
 }
 
 function sortProducts(criteria, array) {
@@ -159,7 +112,7 @@ function sortProducts(criteria, array) {
 /**
  * Obtener productos
  *
- * Le pide a la api el listado de productos de la categoría solicitada.
+ * Solicita a la API el listado de productos de la categoría deseada.
  * Retorna una promesa que al cumplirse devuelve un objeto del tipo Category
  */
 async function getProducts() {
@@ -266,6 +219,7 @@ function eliminarEnDesarrollo() {
 function mostrarListaItems(listaDeItems) {
   const listaDeProductos = generarElementoListaItems(listaDeItems);
   const contenedorDeLista = document.getElementById('contenedor-productos');
+  contenedorDeLista.innerHTML = '';
   contenedorDeLista.appendChild(listaDeProductos);
 }
 
@@ -278,7 +232,6 @@ async function printAllProducts() {
   try {
     const categoriaProductos = await getProducts();
     productsArray = categoriaProductos.products;
-    productsArrayInit = categoriaProductos.products;
     mostrarListaItems(categoriaProductos.products);
   } catch (error) {
     alert(error);
