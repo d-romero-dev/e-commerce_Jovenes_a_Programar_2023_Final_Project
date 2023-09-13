@@ -74,10 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById("cerrarSesion").textContent = "Cerrar Sesión de " + username[0].toUpperCase() + username.slice(1).toLowerCase();
   }
 
-  document.getElementById('login').addEventListener('click', function () {
-    ingresar();
-  });
-
   document.getElementById('cerrarSesion').addEventListener('click', function () {
     // Al hacer clic en "Cerrar Sesión", elimina el nombre de usuario del almacenamiento local
     localStorage.removeItem("user");
