@@ -10,6 +10,12 @@
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="/js/product-info.js"></script>
+
 </head>
 
 <body>
@@ -151,12 +157,83 @@
 </g>
 </svg>
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
-    </div>
+ 
   </main>
+
+  <div class="mb-3">
+    <div class="mb-1">
+        <h3>Comentarios:</h3>
+        <br>
+        
+      
+        </div>
+        <h5>califica el producto:</h5>
+        <div class="form"><span class="star" onclick="setRating(1)">&#9733;</span>
+          <span class="star" onclick="setRating(2)">&#9733;</span>
+          <span class="star" onclick="setRating(3)">&#9733;</span>
+          <span class="star" onclick="setRating(4)">&#9733;</span>
+          <span class="star" onclick="setRating(5)">&#9733;</span>
+          <br>
+            <label for="text" class="form-label"><textarea id="comment" name="comment" rows="10" cols="80" class="form-control"></textarea></label>
+            <br>
+            <button id="send_comment" class="btn btn-success"> Comentar</button>
+            
+        </div>
+    </div>
+</div>
+
+
+<script>
+  let userRating = 0;
+
+  function setRating(rating) {
+      userRating = rating;
+      updateStars();
+  }
+
+  function updateStars() {
+      const stars = document.querySelectorAll('.star');
+      stars.forEach((star, index) => {
+          if (index < userRating) {
+              star.classList.add('active');
+          } else {
+              star.classList.remove('active');
+          }
+      });
+  }
+
+  function submitComment() {
+      const comment = document.querySelector('.comment-input').value;
+
+          console.log("Puntuación: " + userRating);
+          console.log("Comentario: " + comment);
+      }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">
