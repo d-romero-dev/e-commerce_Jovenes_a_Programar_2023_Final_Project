@@ -93,7 +93,7 @@ function showProductsInfo() {
 `                   
 }
 document.addEventListener("DOMContentLoaded", function(e){
-    getJSONData(PRODUCT_INFO_URL + productID).then(function(resultObj){
+    getJSONData(PRODUCT_INFO_URL + productID + EXT_TYPE).then(function(resultObj){
         if (resultObj.status === "ok") 
         {
             productsInfoArray = resultObj.data;
