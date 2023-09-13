@@ -10,6 +10,12 @@
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="/js/product-info.js"></script>
+
 </head>
 
 <body>
@@ -151,12 +157,52 @@
 </g>
 </svg>
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
-    </div>
+ 
   </main>
+
+  <div class="mb-3">
+    <div class="mb-1">
+        <h3>Comentarios:</h3>
+        <br>
+        
+        <h6>Escriba su opinión:</h6>
+        <br>
+        
+        <div class="mb-3">
+            <div class="mb-1">
+                
+                <br>
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">Calificación</button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" href="#" data-value="1">⭐ 1 Estrella</a></li>
+                        <li><a class="dropdown-item" href="#" data-value="2">⭐⭐ 2 Estrellas</a></li>
+                        <li><a class="dropdown-item" href="#" data-value="3">⭐⭐⭐ 3 Estrellas</a></li>
+                        <li><a class="dropdown-item" href="#" data-value="4">⭐⭐⭐⭐ 4 Estrellas</a></li>
+                        <li><a class="dropdown-item" href="#" data-value="5">⭐⭐⭐⭐⭐ 5 Estrellas</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                    </ul>
+                </div>
+                <div id="selectedRating" class="mt-2"></div>
+            </div>
+        </div>
+
+        <div class="form">
+            <label for="text" class="form-label"><textarea id="comment" name="comment" rows="10" cols="80" class="form-control"></textarea></label>
+            <br>
+            <button id="send_comment" class="btn btn-success"> Comentar</button>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">
