@@ -165,29 +165,15 @@
         <h3>Comentarios:</h3>
         <br>
         
-        <h6>Escriba su opinión:</h6>
-        <br>
-        
-        <div class="mb-3">
-            <div class="mb-1">
-                
-                <br>
-                <div class="dropdown">
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">Calificación</button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="#" data-value="1">⭐ 1 Estrella</a></li>
-                        <li><a class="dropdown-item" href="#" data-value="2">⭐⭐ 2 Estrellas</a></li>
-                        <li><a class="dropdown-item" href="#" data-value="3">⭐⭐⭐ 3 Estrellas</a></li>
-                        <li><a class="dropdown-item" href="#" data-value="4">⭐⭐⭐⭐ 4 Estrellas</a></li>
-                        <li><a class="dropdown-item" href="#" data-value="5">⭐⭐⭐⭐⭐ 5 Estrellas</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                    </ul>
-                </div>
-                <div id="selectedRating" class="mt-2"></div>
-            </div>
+      
         </div>
-
-        <div class="form">
+        <h5>califica el producto:</h5>
+        <div class="form"><span class="star" onclick="setRating(1)">&#9733;</span>
+          <span class="star" onclick="setRating(2)">&#9733;</span>
+          <span class="star" onclick="setRating(3)">&#9733;</span>
+          <span class="star" onclick="setRating(4)">&#9733;</span>
+          <span class="star" onclick="setRating(5)">&#9733;</span>
+          <br>
             <label for="text" class="form-label"><textarea id="comment" name="comment" rows="10" cols="80" class="form-control"></textarea></label>
             <br>
             <button id="send_comment" class="btn btn-success"> Comentar</button>
@@ -195,6 +181,51 @@
         </div>
     </div>
 </div>
+
+
+<script>
+  let userRating = 0;
+
+  function setRating(rating) {
+      userRating = rating;
+      updateStars();
+  }
+
+  function updateStars() {
+      const stars = document.querySelectorAll('.star');
+      stars.forEach((star, index) => {
+          if (index < userRating) {
+              star.classList.add('active');
+          } else {
+              star.classList.remove('active');
+          }
+      });
+  }
+
+  function submitComment() {
+      const comment = document.querySelector('.comment-input').value;
+
+          console.log("Puntuación: " + userRating);
+          console.log("Comentario: " + comment);
+      }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
