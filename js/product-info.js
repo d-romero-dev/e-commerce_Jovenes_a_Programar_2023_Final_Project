@@ -1,12 +1,8 @@
+const productID = localStorage.getItem("productID");
 let productsInfoArray = []; 
 
-function setProductId(id) {
-    localStorage.setItem("productID", id);
-    window.location = "product-info.html"
-} 
-
 async function getProductInfo () {
-    const idProduct = localStorage.getItem("productID"); // Guarda el id del producto del almacenamiento local
+    const productID = localStorage.getItem("productID"); // Guarda el id del producto del almacenamiento local
     
     try {
         const productInfo = await fetch (`https://japceibal.github.io/emercado-api/products/${idProduct}.json`); // Solicita al servidor para obtener la información del producto
@@ -90,8 +86,16 @@ function showProductsInfo() {
         </div>
     </div>
 </div>
-`                   
+`              
+    document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;     
 }
+
+function setProductId(id) {
+    localStorage.setItem("productID", id);
+    window.location = "product-info.html"
+} 
+
+
 document.addEventListener("DOMContentLoaded", function(e){
     getJSONData(PRODUCT_INFO_URL + productID + EXT_TYPE).then(function(resultObj){
         if (resultObj.status === "ok") 
