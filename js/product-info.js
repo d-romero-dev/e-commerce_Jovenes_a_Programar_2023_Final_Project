@@ -127,12 +127,12 @@ function setProductId(id) {
 
 
 document.addEventListener("DOMContentLoaded", function(e){
+    eliminarEnDesarrollo();
     getJSONData(PRODUCT_INFO_URL + productID + EXT_TYPE).then(function(resultObj){
         if (resultObj.status === "ok") 
         {
             productsInfoArray = resultObj.data;
             showProductsInfo();
-            eliminarEnDesarrollo();
         }
     })
 });
