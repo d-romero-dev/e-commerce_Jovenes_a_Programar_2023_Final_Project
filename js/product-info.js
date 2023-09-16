@@ -1,11 +1,10 @@
-const productID = localStorage.getItem("productID");
+let productID = localStorage.getItem("productID");  // Guarda el id del producto del almacenamiento local
 let productsInfoArray = []; 
 
 async function getProductInfo () {
-    const productID = localStorage.getItem("productID"); // Guarda el id del producto del almacenamiento local
     
     try {
-        const productInfo = await fetch (`https://japceibal.github.io/emercado-api/products/${idProduct}.json`); // Solicita al servidor para obtener la información del producto
+        const productInfo = await fetch (`https://japceibal.github.io/emercado-api/products/${productID}.json`); // Solicita al servidor para obtener la información del producto
         const product = await productInfo.json(); // Convierte la respuesta a JSON
         return product
         
@@ -13,10 +12,9 @@ async function getProductInfo () {
     } catch (error) {
         alert(error)
     }
-
+}
 // Función para obtener comentarios
-function getComentarios(producto) {
-    let id = producto.id;
+function getAndShowComentarios(id) {
     let comentariosEndpoint = `https://japceibal.github.io/emercado-api/products_comments/${id}.json`;
     fetch(comentariosEndpoint)
         .then((response) => response.json())
@@ -42,8 +40,6 @@ function mostrarComentarios(comentarios) {
         `;
         comentariosContainer.appendChild(comentarioElement);
     });
-}
-
 }
 
 function mostrarProductInfo (product){
@@ -96,7 +92,7 @@ function showProductsInfo() {
                 <h3>Imágenes ilustrativas</h3>
                 <div id="arrowCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
                     <div class="carousel-inner">
-                    ${productinfo.images.map((ima) => {
+                    ${productInfo.images.map((ima) => {
                         if (ima === productInfo.images[0]){
                             return `<div class="carousel-item active" data-bs-interval="2000"><img src="${ima}" alt="product image" class="img-thumbnail"></div>`
                         } else {
@@ -133,6 +129,7 @@ document.addEventListener("DOMContentLoaded", function(e){
         {
             productsInfoArray = resultObj.data;
             showProductsInfo();
+            getAndShowComentarios(productID);
         }
     })
 });
