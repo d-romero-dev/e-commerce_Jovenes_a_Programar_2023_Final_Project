@@ -31,28 +31,23 @@ function mostrarComentarios(comentarios) {
     const comentariosContainer = document.getElementById("comentarios-container");
     comentariosContainer.innerHTML = "";
     comentarios.forEach((comentario) => {
-        const comentarioElement = document.createElement("div");
-        comentarioElement.innerHTML = `
-            <p>Usuario: ${comentario.user}</p>
-            <p>Puntuación: ${comentario.score}</p>
-            <p>Descripción: ${comentario.description}</p>
-            <p>Fecha y hora: ${comentario.dateTime}</p>
-        `;
-        comentariosContainer.appendChild(comentarioElement);
+        comentariosContainer.appendChild(generarComentario(comentario));
+        
     });
 }
 
-function mostrarProductInfo (product){
-     // Muestra la información en la página
-
-     document.getElementById('product-name').innerHTML= product.name;
-     document.getElementById('product-price').innerHTML = product.cost;
-     document.getElementById('product-description').innerHTML = product.description; 
-     document.getElementById('product-category').innerHTML = product.category;
-     document.getElementById('product-soldcount').innerHTML = product.soldCount;
-     document.getElementById('product-image').innerHTML = product.image;
+function generarComentario (comentario){
+    let htmlContentToAppend = `
+    <p>Usuario: ${comentario.user}</p>
+    <p>Puntuación: ${comentario.score}</p>
+    <p>Descripción: ${comentario.description}</p>
+    <p>Fecha y hora: ${comentario.dateTime}</p>
+    `
+    let comentarioElement = document.createElement("div");
+    comentarioElement.innerHTML = htmlContentToAppend;
+    comentarioElement.classList.add("info");
+    return comentarioElement;
 }
-
 
 
 function eliminarEnDesarrollo() {
@@ -63,7 +58,7 @@ function eliminarEnDesarrollo() {
   }
 
 
-
+// Función para mostrar productos y su respectiva información
 function showProductsInfo() {
     let htmlContentToAppend = "";
 

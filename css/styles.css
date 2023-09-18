@@ -313,3 +313,36 @@ a.custom-card:hover {
       color: #fff;
       padding: 10px 20px;
   }
+
+
+  /*Estilo correspondiente al div que contiene los comentarios de los productos en product-info.html, obtenidos en product-info.js*/
+div .info{
+
+  border: 2px solid #b0c4de;
+
+  margin: 10px;
+
+  padding: 15px;
+  
+
+  background-color: #f5f5f5;
+}
+
+.info:hover{
+
+  background-color: #8bbddf;
+  box-shadow: 0 0 10px rgba(0,0,0,1);
+}
+
+div.form{
+  
+  border: 0.5px solid #8bbddf;
+
+  margin: 10px;
+
+  padding: 15px;
+  
+
+  background-color: gainsboro;
+}
+
