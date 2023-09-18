@@ -65,44 +65,6 @@ function addSetRatingToRadio(radioEstrella, scoreValue){
     })
 }
 
-/**
- * Generar elemento de comentario
- *
- * Recibe un objeto de tipo comment, usa sus datos para crear un elemento del DOM de un comentario.
- * No valida que la estructura y contenido del comentario sean adecuadas.
- * @param {comment} comment comentario de un usuario sobre un producto
- * @returns {Element} elemento del dom de un comentario
- */
-function crearElementoComentario(comment) {
-  const domComment = document.createElement('div');
-
-  // crear un elemento para cada dato del comentario
-
-  // calificacion
-  const elementoCalificacion = crearElementoCalificacion(comment.score);
-
-  // descripcion
-  const elementoDescripcion = document.createElement('p');
-  elementoDescripcion.textContent = `${comment.description}`;
-
-  // nombre del usuario
-  const elementoNombreUsuario = document.createElement('span');
-  elementoNombreUsuario.textContent = `${comment.user}`;
-
-  // fecha de creacion
-  const elementoFechaCreacion = document.createElement('span');
-  elementoFechaCreacion.textContent = `${comment.dateTime}`;
-
-  [
-    elementoNombreUsuario,
-    elementoFechaCreacion,
-    elementoDescripcion,
-    elementoCalificacion,
-  ].forEach((elemento) => {
-    domComment.appendChild(elemento);
-  });
-  return domComment;
-}
 
 /**
  * Obtener datos del nuevo comentario
@@ -179,12 +141,20 @@ function mostrarComentarios(comentarios) {
     const comentariosContainer = document.getElementById("comentarios-container");
     comentariosContainer.innerHTML = "";
     comentarios.forEach((comentario) => {
-        comentariosContainer.appendChild(generarComentario(comentario));
+        comentariosContainer.appendChild(crearElementoComentario(comentario));
         
     });
 }
 
-function generarComentario (comentario){
+/**
+ * Generar elemento de comentario
+ *
+ * Recibe un objeto de tipo comment, usa sus datos para crear un elemento del DOM de un comentario.
+ * No valida que la estructura y contenido del comentario sean adecuadas.
+ * @param {comment} comment comentario de un usuario sobre un producto
+ * @returns {Element} elemento del dom de un comentario
+ */
+function crearElementoComentario (comentario){
     let htmlContentToAppend = `
     <p>Usuario: ${comentario.user}</p>
     <p>Puntuación: ${comentario.score}</p>
