@@ -1,7 +1,8 @@
 
 const commentFormId = 'comentar'; // id del form para ingresar comentarios
 const commentsContainerId = 'comentarios-container'; // id del contenedor de comentarios
-
+const registerCommentForm = document.getElementById("comentar");
+const scoreInput = document.getElementById("inputScore");
 /**
  * @typedef {object} comment
  *
@@ -35,6 +36,35 @@ function crearElementoCalificacion(calificacion, maxCalificacion = 5) {
   return domCalificacion;
 }
 
+//
+// let userRating = 0;
+function setRating(rating) {
+    scoreInput.value = rating;
+    updateStars();
+}
+
+function updateStars() {
+    const stars = document.querySelectorAll('.star');
+    stars.forEach((star, index) => {
+        if (index < scoreInput.value) {
+            star.classList.add('active');
+        } else {
+            star.classList.remove('active');
+        }
+    });
+}
+
+/**
+ * 
+ * @param {Element} radioEstrella
+ */
+function addSetRatingToRadio(radioEstrella, scoreValue){
+    radioEstrella.addEventListener("click", (e) => {
+        setRating(scoreValue)
+        console.log(scoreValue)
+    })
+}
+
 /**
  * Generar elemento de comentario
  *
@@ -47,23 +77,31 @@ function crearElementoComentario(comment) {
   const domComment = document.createElement('div');
 
   // crear un elemento para cada dato del comentario
+
+  // calificacion
   const elementoCalificacion = crearElementoCalificacion(comment.score);
+
+  // descripcion
   const elementoDescripcion = document.createElement('p');
   elementoDescripcion.textContent = `${comment.description}`;
+
+  // nombre del usuario
   const elementoNombreUsuario = document.createElement('span');
   elementoNombreUsuario.textContent = `${comment.user}`;
+
+  // fecha de creacion
   const elementoFechaCreacion = document.createElement('span');
   elementoFechaCreacion.textContent = `${comment.dateTime}`;
 
-  domComment
-    .appendChild('div')
-    .append([
-      elementoNombreUsuario,
-      elementoFechaCreacion,
-      elementoCalificacion,
-    ]);
-
-  domComment.appendChild('div').append([elementoDescripcion]);
+  [
+    elementoNombreUsuario,
+    elementoFechaCreacion,
+    elementoDescripcion,
+    elementoCalificacion,
+  ].forEach((elemento) => {
+    domComment.appendChild(elemento);
+  });
+  return domComment;
 }
 
 /**
@@ -75,12 +113,12 @@ function crearElementoComentario(comment) {
  */
 function getDatosNuevoComentario() {
   const datosComentario = {};
-  datosComentario.product = localStorage.getItem('product');
+  datosComentario.product = localStorage.getItem('productID');
   datosComentario.score = document.getElementById('inputScore').value;
   datosComentario.description =
     document.getElementById('inputDescription').value;
-  datosComentario.user = document.getElementById('inputUser').value;
-  datosComentario.dateTime = document.getElementById('inputDateTime').value;
+  datosComentario.user = localStorage.getItem("user")
+  datosComentario.dateTime = new Date().toString();
   return datosComentario;
 }
 
@@ -242,4 +280,10 @@ document.addEventListener("DOMContentLoaded", function(e){
             getAndShowComentarios(productID);
         }
     })
+    const stars = document.querySelectorAll('.star');
+    stars.forEach((star, index) => {
+        addSetRatingToRadio(star,index+1);
+    });
+    registerCommentForm.addEventListener("submit",registroDeComentario)
+
 });
