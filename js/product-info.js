@@ -80,7 +80,8 @@ function getDatosNuevoComentario() {
   datosComentario.description =
     document.getElementById('inputDescription').value;
   datosComentario.user = localStorage.getItem("user")
-  datosComentario.dateTime = new Date().toString();
+  const fechaActual = new Date();
+  datosComentario.dateTime = fechaActual.toLocaleDateString() + " " + fechaActual.toLocaleTimeString();
   return datosComentario;
 }
 
