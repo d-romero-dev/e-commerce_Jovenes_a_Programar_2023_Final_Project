@@ -1,3 +1,151 @@
+
+const commentFormId = 'comentar'; // id del form para ingresar comentarios
+const commentsContainerId = 'comentarios-container'; // id del contenedor de comentarios
+const registerCommentForm = document.getElementById("comentar");
+const scoreInput = document.getElementById("inputScore");
+/**
+ * @typedef {object} comment
+ *
+ * @property {Number} product id del producto
+ * @property {Number} score calificacion del producto
+ * @property {String} description descripcion del producto
+ * @property {String} user username del autor del comentario
+ * @property {String} dateTime fecha de creacion del comentario
+ */
+
+/**
+ * Generar elemento de estrellas de calificacion
+ *
+ * @param {Number} calificacion
+ * @param {Number} maxCalificacion opcional, 5 es el valor por default
+ * @returns
+ */
+function crearElementoCalificacion(calificacion, maxCalificacion = 5) {
+  const estrellaLlena = '★';
+  const estrellaVacia = '☆';
+  const domCalificacion = document.createElement('div');
+
+  let estrella;
+  for (let nEstrella = 1; nEstrella < maxCalificacion; nEstrella++) {
+    estrella = document.createElement('span');
+    if (calificacion > nEstrella) estrella.innerHTML = estrellaLlena;
+    else estrella.innerHTML = estrellaVacia;
+    domCalificacion.appendChild = estrella;
+  }
+
+  return domCalificacion;
+}
+
+//
+// let userRating = 0;
+function setRating(rating) {
+    scoreInput.value = rating;
+    updateStars();
+}
+
+function updateStars() {
+    const stars = document.querySelectorAll('.star');
+    stars.forEach((star, index) => {
+        if (index < scoreInput.value) {
+            star.classList.add('active');
+        } else {
+            star.classList.remove('active');
+        }
+    });
+}
+
+/**
+ * 
+ * @param {Element} radioEstrella
+ */
+function addSetRatingToRadio(radioEstrella, scoreValue){
+    radioEstrella.addEventListener("click", (e) => {
+        setRating(scoreValue)
+        console.log(scoreValue)
+    })
+}
+
+/**
+ * Generar elemento de comentario
+ *
+ * Recibe un objeto de tipo comment, usa sus datos para crear un elemento del DOM de un comentario.
+ * No valida que la estructura y contenido del comentario sean adecuadas.
+ * @param {comment} comment comentario de un usuario sobre un producto
+ * @returns {Element} elemento del dom de un comentario
+ */
+function crearElementoComentario(comment) {
+  const domComment = document.createElement('div');
+
+  // crear un elemento para cada dato del comentario
+
+  // calificacion
+  const elementoCalificacion = crearElementoCalificacion(comment.score);
+
+  // descripcion
+  const elementoDescripcion = document.createElement('p');
+  elementoDescripcion.textContent = `${comment.description}`;
+
+  // nombre del usuario
+  const elementoNombreUsuario = document.createElement('span');
+  elementoNombreUsuario.textContent = `${comment.user}`;
+
+  // fecha de creacion
+  const elementoFechaCreacion = document.createElement('span');
+  elementoFechaCreacion.textContent = `${comment.dateTime}`;
+
+  [
+    elementoNombreUsuario,
+    elementoFechaCreacion,
+    elementoDescripcion,
+    elementoCalificacion,
+  ].forEach((elemento) => {
+    domComment.appendChild(elemento);
+  });
+  return domComment;
+}
+
+/**
+ * Obtener datos del nuevo comentario
+ *
+ * Obtiene los datos de un nuevo comentario a partir de los inputs del registro de comentario.
+ *
+ * @returns {comment}
+ */
+function getDatosNuevoComentario() {
+  const datosComentario = {};
+  datosComentario.product = localStorage.getItem('productID');
+  datosComentario.score = document.getElementById('inputScore').value;
+  datosComentario.description =
+    document.getElementById('inputDescription').value;
+  datosComentario.user = localStorage.getItem("user")
+  datosComentario.dateTime = new Date().toString();
+  return datosComentario;
+}
+
+/**
+ * Mostrar nuevo comentario
+ *
+ * Inserta en la vista el elemento del dom del nuevo comentario a partir de los datos del registro del mismo
+ */
+function mostrarNuevoComentario() {
+  const dataComentario = getDatosNuevoComentario();
+  const domComentario = crearElementoComentario(dataComentario);
+  const contenedorComentarios = document.getElementById(commentsContainerId);
+  contenedorComentarios.appendChild(domComentario);
+}
+
+/**
+ * Registro de comentario
+ *
+ * Event listener para el registro de un nuevo comentario
+ *
+ * @param {Event} evento
+ */
+function registroDeComentario(evento) {
+  evento.preventDefault();
+  mostrarNuevoComentario();
+}
+
 let productID = localStorage.getItem("productID");  // Guarda el id del producto del almacenamiento local
 let productsInfoArray = []; 
 
@@ -127,4 +275,10 @@ document.addEventListener("DOMContentLoaded", function(e){
             getAndShowComentarios(productID);
         }
     })
+    const stars = document.querySelectorAll('.star');
+    stars.forEach((star, index) => {
+        addSetRatingToRadio(star,index+1);
+    });
+    registerCommentForm.addEventListener("submit",registroDeComentario)
+
 });
