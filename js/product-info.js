@@ -177,9 +177,10 @@ function eliminarEnDesarrollo() {
   }
 
 
-// Función para mostrar productos y su respectiva información
+// Función para mostrar productos, su respectiva información y productos
 function showProductsInfo() {
     let htmlContentToAppend = "";
+    let productrelated = "";
 
         let productInfo = productsInfoArray; 
 
@@ -227,7 +228,32 @@ function showProductsInfo() {
     </div>
 </div>
 `              
+// Mostrar productos relacionados 
+        productrelated += `
+        <div class="">
+            <div class="row">
+                <div class=" w-100 justify-content-between">
+                    <div class="mb-1">
+                        <h3 class="ms-3">Productos relacionados</h3>
+                        <br>
+                        <div class="row">
+                         ${productInfo.relatedProducts.map((ima) => {
+                          return `<div onclick="setProductId(${ima.id})" class="col card cursor-active" style="padding:0px; margin:20px; max-width:50%;"> 
+                          <img class="card-img-top" src="${ima.image}" alt="product image" class="img-thumbnail">
+                          <div class="card-body">
+                          <p class="card-text">${ima.name}</p> 
+                          </div>
+                          </div>`
+                         }).join(" ")}  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `
+
     document.getElementById("product-info-container").innerHTML = htmlContentToAppend;     
+    document.getElementById("productRelated").innerHTML = productrelated; 
 }
 
 function setProductId(id) {
