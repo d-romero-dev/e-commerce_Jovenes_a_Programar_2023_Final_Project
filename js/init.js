@@ -78,9 +78,26 @@ function generarMenuDesplegable() {
 
   botonCerrarSesion = document.getElementById("cierreDeSesion");
   botonCerrarSesion.addEventListener("click", () => {
-    localStorage.removeItem("user");
-    setUserIsLogged(false);
-    window.location.href = "login.html";
+     
+    Swal.fire({
+      title: "¿Cerrar Sesión?",
+      text: "ATENCIÓN: ¿Desea cerrar sesión?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cerrar sesión',
+      cancelButtonText: 'No, cancelar'
+     }).then((result)=> {
+      if (result.isConfirmed){
+        localStorage.removeItem("user");
+        setUserIsLogged(false);
+        window.location.href="login.html";
+      }
+
+     })
+
+  
   })
 }
 
