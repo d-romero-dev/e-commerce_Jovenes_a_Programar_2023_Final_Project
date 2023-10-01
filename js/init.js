@@ -55,6 +55,82 @@ function setUserIsLogged(isLogged) {
   localStorage.setItem('userIsLogged', !!isLogged);
 }
 
+/**
+ * @typedef {object} ColorMode
+ *
+ * @property {String} value Valor del local storage que representa este modo
+ * @property {String} className Clases (html) del icono del modo
+ * @property {String} ariaLabel Texto alternativo para el modo (para personas sin vision)
+ */
+
+const colorModeIdentifier = 'colorMode';
+const darkMode = {
+  value: 'darkColorMode',
+  className: 'bi bi-moon-stars-fill text-white',
+  ariaLabel: 'dark color mode',
+};
+const lightMode = {
+  value: 'lightColorMode',
+  className: 'bi bi-sun-fill text-white',
+  ariaLabel: 'ligh color modet',
+};
+
+/**
+ * Obtiene el valor del modo de color actual desde el localStorage, invierte su valor en el localStorage
+ * y cambia el icono del boton al correspondiente.
+ *
+ * @param {Element} iconElement
+ */
+function swapColorMode(iconElement) {
+  const currentColorMode = localStorage.getItem(colorModeIdentifier);
+
+  if (!currentColorMode || currentColorMode === darkMode.value) {
+    setColorMode(lightMode, iconElement);
+  } else if (currentColorMode === lightMode.value) {
+    setColorMode(darkMode, iconElement);
+  }
+}
+
+/**
+ * Settea el valor de la variable del local storage y cambia el icono
+ *
+ * @param {ColorMode} colorMode
+ * @param {Element} iconElement
+ */
+function setColorMode(colorMode, iconElement) {
+  localStorage.setItem(colorModeIdentifier, colorMode.value);
+  iconElement.className = colorMode.className;
+  iconElement.ariaLabel = colorMode.ariaLabel;
+}
+
+function createColorModeButtons() {
+  const container = document.createElement('li');
+  container.className = 'nav-item';
+  container.ariaLabel = 'set color mode';
+
+  const colorModeIcon = document.createElement('i');
+  const currentColorMode = localStorage.getItem(colorModeIdentifier);
+  if (!currentColorMode || currentColorMode === lightMode.value) {
+    setColorMode(lightMode, colorModeIcon);
+  } else if (currentColorMode === darkMode.value) {
+    setColorMode(darkMode, colorModeIcon);
+  }
+
+  const colorModeButton = document.createElement('button');
+  colorModeButton.appendChild(colorModeIcon);
+  colorModeButton.className = 'btn btn-link';
+  colorModeButton.addEventListener('click', () => swapColorMode(colorModeIcon));
+
+  container.appendChild(colorModeButton);
+
+  return container;
+}
+
+function insertColorModeButtons() {
+  const barraNavegacion = document.querySelector('#navbarNav>ul:first-child');
+  barraNavegacion.appendChild(createColorModeButtons());
+}
+
 //Genera un menu desplegable en el boton de nombre de usuario
 function generarMenuDesplegable() {
   const username = localStorage.getItem('user');
@@ -91,6 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!userIsLogged()) {
     window.location.href = 'login.html';
   }
+  insertColorModeButtons();
   // Verifica si el usuario ya está logueado
   if (userIsLogged()) {
     // Si está logueado muestra button, con el nombre guardado en el almacenamiento local y un dropdown
