@@ -61,6 +61,7 @@ function setUserIsLogged(isLogged) {
  * @property {String} value Valor del local storage que representa este modo
  * @property {String} className Clases (html) del icono del modo
  * @property {String} ariaLabel Texto alternativo para el modo (para personas sin vision)
+ * @property {Function} applicarColor funcion que aplica el estilo a la pagina
  */
 
 const colorModeIdentifier = 'colorMode';
@@ -68,12 +69,36 @@ const darkMode = {
   value: 'darkColorMode',
   className: 'bi bi-moon-stars-fill text-white',
   ariaLabel: 'dark color mode',
+  applicarColor: () => {
+    const bgColor = '#0d1113';
+    const fontColor = '#ffffff';
+    aplicarColores(bgColor, fontColor);
+  },
 };
 const lightMode = {
   value: 'lightColorMode',
   className: 'bi bi-sun-fill text-white',
   ariaLabel: 'ligh color modet',
+  applicarColor: () => {
+    const bgColor = '#ffffff';
+    const fontColor = '#0d1113';
+    aplicarColores(bgColor, fontColor);
+  },
 };
+
+function aplicarColores(backgrounColor, fontColor){
+  /**
+   * @type {Array<Element>}
+   */
+  const elementos = []
+  elementos.push(document.getElementsByTagName('body')[0]);
+  elementos.push(...document.getElementsByClassName("list-group-item"));
+  elementos.forEach(elem =>{
+    if (!elem.style) return
+    elem.style.color = fontColor;
+    elem.style.backgroundColor = backgrounColor;
+  })
+}
 
 /**
  * Obtiene el valor del modo de color actual desde el localStorage, invierte su valor en el localStorage
@@ -101,6 +126,7 @@ function setColorMode(colorMode, iconElement) {
   localStorage.setItem(colorModeIdentifier, colorMode.value);
   iconElement.className = colorMode.className;
   iconElement.ariaLabel = colorMode.ariaLabel;
+  colorMode.applicarColor();
 }
 
 function createColorModeButtons() {
