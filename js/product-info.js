@@ -3,6 +3,57 @@ const commentFormId = 'comentar'; // id del form para ingresar comentarios
 const commentsContainerId = 'comentarios-container'; // id del contenedor de comentarios
 const registerCommentForm = document.getElementById("comentar");
 const scoreInput = document.getElementById("inputScore");
+const prevButton = document.getElementById('prevBtn');
+const nextButton = document.getElementById('nextBtn');
+
+let currentIndex = 0;
+let images = [];
+
+// Función para cargar las imágenes desde la API
+async function fetchImages() {
+    try {
+        const response = await fetch('https://japceibal.github.io/emercado-api/cats_products/.json');
+        if (!response.ok) {
+            throw new Error('No se pudo obtener la lista de imágenes desde la API.');
+        }
+        const data = await response.json();
+        images = data.images; 
+        showSlide(currentIndex);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+
+function showSlide(index) {
+    if (images.length === 0) {
+        console.error('No se han cargado imágenes desde la API.');
+        return;
+    }
+
+    if (index < 0) {
+        currentIndex = images.length - 1;
+    } else if (index >= images.length) {
+        currentIndex = 0;
+    }
+
+    const imageUrl = images[currentIndex];
+    carouselContainer.style.backgroundImage = `url(${imageUrl})`;
+}
+
+prevButton.addEventListener('click', () => {
+    currentIndex--;
+    showSlide(currentIndex);
+});
+
+nextButton.addEventListener('click', () => {
+    currentIndex++;
+    showSlide(currentIndex);
+});
+
+// Cargar imágenes desde la API al cargar la página
+fetchImages();
+
 /**
  * @typedef {object} comment
  *
