@@ -78,7 +78,7 @@ const darkMode = {
 const lightMode = {
   value: 'lightColorMode',
   className: 'bi bi-sun-fill text-white',
-  ariaLabel: 'ligh color modet',
+  ariaLabel: 'light color mode',
   applicarColor: () => {
     const bgColor = '#ffffff';
     const fontColor = '#0d1113';
