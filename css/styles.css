@@ -1,3 +1,32 @@
+[data-theme='dark'] {
+  --navBar-bg-color: #212529;
+  --background-color: #0d1113;
+  --font-color: #ffffff;
+}
+
+[data-theme='light'] {
+  --navBar-bg-color: #80b9f1;
+  --background-color: #ffffff;
+  --font-color: #0d1113;
+}
+[aria-label='Toggle navigation'] {
+  background-color: #ce1b5f;
+}
+.body,
+.list-group-item {
+  color: var(--font-color);
+  background-color: var(--background-color);
+}
+
+#navbarNav ul {
+  align-items: center;
+}
+
+.navbar {
+  background-color: var(--navBar-bg-color);
+  color: var(--font-color);
+}
+
 .jumbotron,
 .card-body,
 .container,
