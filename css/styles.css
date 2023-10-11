@@ -4,6 +4,7 @@
   --background-color__thumbnail: #212529;
   --background-color__groupItem: #212529;
   --background-color__button: #1765b9;
+  --background-color__textarea: #212529;
   --font-color: #ffffff;
   --font-color__grayOut: rgba(255, 255, 255, 0.75);
   --font-color__highlight: #5ca8f8;
@@ -15,6 +16,7 @@
   --background-color__navBar: #58acff;
   --background-color__thumbnail: #d0e8ff;
   --background-color__groupItem: #f8f9fa;
+  --background-color__textarea: #f8f9fa;
   --font-color: #0d1113;
   --font-color__grayOut: rgba(0, 0, 0, 0.534);
   --font-color__highlight: #58acff;
@@ -22,13 +24,17 @@
 }
 
 body,
-.list-group-item {
+.list-group-item,
+#comentarios-container .info,
+.card-body {
   color: var(--font-color);
   background-color: var(--background-color);
   border-color: var(--border-color);
 }
 
-.list-group-item:hover {
+.list-group-item:hover,
+#comentarios-container .info:hover,
+.card-body:hover {
   background-color: var(--background-color__groupItem);
   color: var(--font-color__highlight);
 }
@@ -77,6 +83,14 @@ body,
 
 .range-filter::placeholder {
   color: var(--font-color__grayOut);
+}
+
+textarea,
+textarea.form-control,
+textarea:focus,
+textarea.form-control:focus {
+  color: var(--font-color);
+  background-color: var(--background-color__textarea);
 }
 
 .jumbotron,
