@@ -67,7 +67,7 @@ function setUserIsLogged(isLogged) {
 const colorModeIdentifier = 'colorMode';
 const darkMode = {
   value: 'dark',
-  className: 'bi bi-moon-stars-fill text-white',
+  className: 'bi bi-moon-stars-fill',
   ariaLabel: 'dark color mode',
   applicarColor: () => {
     const bgColor = '#0d1113';
@@ -77,7 +77,7 @@ const darkMode = {
 };
 const lightMode = {
   value: 'light',
-  className: 'bi bi-sun-fill text-white',
+  className: 'bi bi-sun-fill',
   ariaLabel: 'light color mode',
   applicarColor: () => {
     const bgColor = '#ffffff';
@@ -112,6 +112,9 @@ function swapColorMode(iconElement) {
   if (!currentColorMode || currentColorMode === darkMode.value) {
     setColorMode(lightMode, iconElement);
   } else if (currentColorMode === lightMode.value) {
+    setColorMode(darkMode, iconElement);
+  } else {
+    // caso el local storage no coincide con uno de los posibles valores
     setColorMode(darkMode, iconElement);
   }
 }
@@ -168,7 +171,7 @@ function generarMenuDesplegable() {
   const username = localStorage.getItem('user');
   let htmlContentToAppend =
     `
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
     ` +
     username[0].toUpperCase() +
     username.slice(1).toLowerCase() +
