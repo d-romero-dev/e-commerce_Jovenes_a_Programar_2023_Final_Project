@@ -9,6 +9,7 @@
   --font-color__grayOut: rgba(255, 255, 255, 0.75);
   --font-color__highlight: #5ca8f8;
   --border-color: rgba(33, 37, 41, 0.596);
+  --border-color__input: #40474e;
 }
 
 [data-theme='light'] {
@@ -21,12 +22,14 @@
   --font-color__grayOut: rgba(0, 0, 0, 0.534);
   --font-color__highlight: #58acff;
   --border-color: rgba(0, 0, 0, 0.125);
+  --border-color__input: #ced4da;
 }
 
 body,
 .list-group-item,
 #comentarios-container .info,
-.card-body {
+.card-body,
+.modal-content {
   color: var(--font-color);
   background-color: var(--background-color);
   border-color: var(--border-color);
@@ -88,8 +91,27 @@ body,
 textarea,
 textarea.form-control,
 textarea:focus,
-textarea.form-control:focus {
+textarea.form-control:focus,
+select,
+select.form-select,
+select:focus,
+select.form-select:focus,
+input[type='text'],
+input.form-control[type='text'],
+input[type='text']:focus,
+input.form-control[type='text']:focus,
+input[type='number'],
+input.form-control[type='number'],
+input[type='number']:focus,
+input.form-control[type='number']:focus,
+#file-upload,
+#file-upload:focus {
   color: var(--font-color);
+  background-color: var(--background-color__textarea);
+  border-color: var(--border-color__input);
+}
+
+#file-upload .dz-preview.dz-image-preview {
   background-color: var(--background-color__textarea);
 }
 
