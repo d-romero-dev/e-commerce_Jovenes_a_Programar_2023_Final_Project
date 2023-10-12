@@ -66,8 +66,8 @@ function setUserIsLogged(isLogged) {
 
 const colorModeIdentifier = 'colorMode';
 const darkMode = {
-  value: 'darkColorMode',
-  className: 'bi bi-moon-stars-fill text-white',
+  value: 'dark',
+  className: 'bi bi-moon-stars-fill',
   ariaLabel: 'dark color mode',
   applicarColor: () => {
     const bgColor = '#0d1113';
@@ -76,8 +76,8 @@ const darkMode = {
   },
 };
 const lightMode = {
-  value: 'lightColorMode',
-  className: 'bi bi-sun-fill text-white',
+  value: 'light',
+  className: 'bi bi-sun-fill',
   ariaLabel: 'light color mode',
   applicarColor: () => {
     const bgColor = '#ffffff';
@@ -86,18 +86,18 @@ const lightMode = {
   },
 };
 
-function aplicarColores(backgrounColor, fontColor){
+function aplicarColores(backgrounColor, fontColor) {
   /**
    * @type {Array<Element>}
    */
-  const elementos = []
+  const elementos = [];
   elementos.push(document.getElementsByTagName('body')[0]);
-  elementos.push(...document.getElementsByClassName("list-group-item"));
-  elementos.forEach(elem =>{
-    if (!elem.style) return
-    elem.style.color = fontColor;
-    elem.style.backgroundColor = backgrounColor;
-  })
+  elementos.push(...document.getElementsByClassName('list-group-item'));
+  // elementos.forEach(elem =>{
+  //   if (!elem.style) return
+  //   elem.style.color = fontColor;
+  //   elem.style.backgroundColor = backgrounColor;
+  // })
 }
 
 /**
@@ -113,6 +113,9 @@ function swapColorMode(iconElement) {
     setColorMode(lightMode, iconElement);
   } else if (currentColorMode === lightMode.value) {
     setColorMode(darkMode, iconElement);
+  } else {
+    // caso el local storage no coincide con uno de los posibles valores
+    setColorMode(darkMode, iconElement);
   }
 }
 
@@ -124,6 +127,7 @@ function swapColorMode(iconElement) {
  */
 function setColorMode(colorMode, iconElement) {
   localStorage.setItem(colorModeIdentifier, colorMode.value);
+  document.documentElement.setAttribute('data-theme', colorMode.value); // Aqui aqui aqui!!!! lo del data theme
   iconElement.className = colorMode.className;
   iconElement.ariaLabel = colorMode.ariaLabel;
   colorMode.applicarColor();
@@ -146,6 +150,11 @@ function createColorModeButtons() {
   colorModeButton.appendChild(colorModeIcon);
   colorModeButton.className = 'btn btn-link';
   colorModeButton.addEventListener('click', () => swapColorMode(colorModeIcon));
+  colorModeButton.addEventListener(
+    'change',
+    () => swapColorMode(colorModeIcon),
+    false
+  );
 
   container.appendChild(colorModeButton);
 
@@ -162,7 +171,7 @@ function generarMenuDesplegable() {
   const username = localStorage.getItem('user');
   let htmlContentToAppend =
     `
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
     ` +
     username[0].toUpperCase() +
     username.slice(1).toLowerCase() +
@@ -181,29 +190,25 @@ function generarMenuDesplegable() {
   menuDesplegable.innerHTML = htmlContentToAppend;
   barraNavegacion.appendChild(menuDesplegable);
 
-  botonCerrarSesion = document.getElementById("cierreDeSesion");
-  botonCerrarSesion.addEventListener("click", () => {
-     
+  botonCerrarSesion = document.getElementById('cierreDeSesion');
+  botonCerrarSesion.addEventListener('click', () => {
     Swal.fire({
-      title: "¿Cerrar Sesión?",
-      text: "ATENCIÓN: ¿Desea cerrar sesión?",
+      title: '¿Cerrar Sesión?',
+      text: 'ATENCIÓN: ¿Desea cerrar sesión?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, cerrar sesión',
-      cancelButtonText: 'No, cancelar'
-     }).then((result)=> {
-      if (result.isConfirmed){
-        localStorage.removeItem("user");
+      cancelButtonText: 'No, cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem('user');
         setUserIsLogged(false);
-        window.location.href="login.html";
+        window.location.href = 'login.html';
       }
-
-     })
-
-  
-  })
+    });
+  });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
