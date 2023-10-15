@@ -1,4 +1,5 @@
 const APIcarrito = "https://japceibal.github.io/emercado-api/user_cart/25801.json";
+let productCartID = JSON.parse(localStorage.getItem("productCartID"));
 
 function eliminarEnDesarrollo() {
     let alerta = document.getElementsByClassName(
@@ -34,7 +35,7 @@ function showCarritodeCompras(carrito) {
        
         <table class="table">
             <tr>
-                <th> Imagen</th>
+                <th>Imagen</th>
                 <th>Nombre</th>
                 <th>Costo</th>
                 <th>Cantidad</th>
@@ -84,3 +85,32 @@ document.addEventListener("DOMContentLoaded", function () {
         showCarritodeCompras(carrito);
     });
 });
+
+
+// Función para agregar nuevos productos
+function showNewProduct(i) {
+    htmlContentToAppendNewProduct = "";
+
+    htmlContentToAppendNewProduct = `
+                <tr id="${newProductsCart.id}">
+                    <th scope="row"><img src="${newProductsCart.images[0]}" style="max-width: 100px;"></th>
+                    <td>${newProductsCart.name}</td>
+                    <td id="dolar${i}">${newProductsCart.currency}  ${newProductsCart.cost}</td>
+                    <td><input type="number" oninput="calcNewArticles(amount${i}.value,${newProductsCart.cost}, ${i}, '${newProductsCart.currency}')" id="amount${i}" value="1" class="form-control" style="width: 50px;" min="1"></td>
+                    <td>USD<label id="price${i}">${newProductsCart.cost}</label></td>
+                    <td><button type="button"  onclick="deleteNewArticle(${newProductsCart.id}, ${i})" class="btn btn-danger">Eliminar</button></td>
+                </tr>
+    `
+    document.getElementById("tbody").innerHTML += htmlContentToAppendNewProduct;
+   };
+
+
+   for(let i = 0; i < productCartID.length; i++){ 
+    getJSONData(PRODUCT_INFO_URL + productCartID[i] + EXT_TYPE).then(function(resultObj){
+        if (resultObj.status === "ok")
+        {
+            newProductsCart = resultObj.data; 
+            showNewProduct(i);
+        }
+    });
+    }
