@@ -246,6 +246,10 @@ function showProductsInfo() {
                 <div class="col-md-4">
                 <h1>`+ productInfo.name +`</h1>
                 </div>
+                <div class="col-md-4 offset-md-4">
+                <button type="button" class="btn btn-success" onclick="setProductCart()">Comprar</button>
+                </div>
+                </div>
                 <hr>
                 <h3>Precio</h3>
                 <p>`+ productInfo.cost + `</p>
@@ -311,6 +315,19 @@ function setProductId(id) {
     localStorage.setItem("productID", id);
     window.location = "product-info.html"
 } 
+
+// Función para guardar los productos en el carrito
+function setProductCart(){
+    if (carritofinal < 1 || carritofinal == null){
+        carrito.push(productsInfoArray.id);
+    localStorage.setItem("productCartID", JSON.stringify(carrito));
+    } else
+    {
+        carritofinal.push(productsInfoArray.id);
+        localStorage.setItem("productCartID", JSON.stringify(carritofinal));
+    }
+    window.location = "cart.html"
+}
 
 
 document.addEventListener("DOMContentLoaded", function(e){
