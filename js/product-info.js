@@ -5,6 +5,8 @@ const registerCommentForm = document.getElementById("comentar");
 const scoreInput = document.getElementById("inputScore");
 const prevButton = document.getElementById('prevBtn');
 const nextButton = document.getElementById('nextBtn');
+let carrito = [];
+let carritofinal = JSON.parse(localStorage.getItem("productCartID"));
 
 let currentIndex = 0;
 let images = [];
