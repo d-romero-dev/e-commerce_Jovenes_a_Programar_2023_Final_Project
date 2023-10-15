@@ -27,22 +27,46 @@ function getCarritodeCompras() {
     });
 }
 
+// Función para calcular y actualizar el subtotal
+function calcularSubtotal(evento, subtotalElement, unitCost) {
+  // Obtiene la cantidad del campo de entrada
+  const cantidad = parseInt(evento.target.value);
+
+  // Calcula el subtotal multiplicando el precio unitario por la cantidad
+  const subtotal = unitCost * cantidad;
+
+  // Actualiza el contenido del elemento de subtotal en la página
+  subtotalElement.textContent = `${subtotal}`;
+}
+
+// Calcula el subtotal inicial al cargar la página
+// calcularSubtotal();
+
 function crearElementoFilaProducto(article) {
   const fila = document.createElement('tr');
-  fila.innerHTML = `    <tr>
+  fila.id = `filaProducto__${article.id}`;
+  fila.innerHTML = `
         <td>
         <img src="${article.image}" width="100" alt= "Imagen del articulo">
         </td>
         <td>${article.name}</td>
         <td>${article.currency} ${article.unitCost}</td>
-        <td> <input type="number" id="cantidadInput" value="${
-          article.count
-        }" /></td>
-        <td>${article.currency} <span id="subtotal">${
+        <td> <input type="number" id="cantidadInput__${article.id}" value="${
+    article.count
+  }" /></td>
+        <td>${article.currency} <span id="subtotal__${article.id}">${
     article.unitCost * article.count
-  }</span></td>
-    
-    </tr>`;
+  }</span></td>`;
+
+  // Obtener elemento subtotal desde el elemento fila
+  const subtotalElement = fila.querySelector(`#subtotal__${article.id}`);
+
+  // Agrega un evento de entrada al campo de cantidad para llamar a la función calcularSubtotal() cuando cambie el valor
+  fila
+    .querySelector(`#cantidadInput__${article.id}`)
+    .addEventListener('input', (evento) =>
+      calcularSubtotal(evento, subtotalElement, article.unitCost)
+    );
   return fila;
 }
 
@@ -74,27 +98,6 @@ function showCarritodeCompras(carrito) {
   carrito.articles.forEach((article) => {
     tablaDeContenidoCarrito.append(crearElementoFilaProducto(article));
   });
-
-  const cantidadInput = document.getElementById('cantidadInput');
-  const subtotalElement = document.getElementById('subtotal');
-
-  // Función para calcular y actualizar el subtotal
-  function calcularSubtotal() {
-    // Obtiene la cantidad del campo de entrada
-    const cantidad = parseInt(cantidadInput.value);
-
-    // Calcula el subtotal multiplicando el precio unitario por la cantidad
-    const subtotal = carrito.articles[0].unitCost * cantidad;
-
-    // Actualiza el contenido del elemento de subtotal en la página
-    subtotalElement.textContent = `${carrito.articles[0].currency} ${subtotal}`;
-  }
-
-  // Agrega un evento de entrada al campo de cantidad para llamar a la función calcularSubtotal() cuando cambie el valor
-  cantidadInput.addEventListener('input', calcularSubtotal);
-
-  // Calcula el subtotal inicial al cargar la página
-  calcularSubtotal();
 }
 
 document.addEventListener('DOMContentLoaded', function () {
