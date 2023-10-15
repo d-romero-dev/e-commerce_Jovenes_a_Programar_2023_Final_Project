@@ -25,6 +25,23 @@ function getCarritodeCompras() {
         });
 }
 
+
+function crearElementoFilaProducto(article){
+    const fila = document.createElement('tr')
+    fila.innerHTML = 
+`    <tr>
+        <td>
+        <img src="${article.image}" width="100" alt= "Imagen del articulo">
+        </td>
+        <td>${article.name}</td>
+        <td>${article.currency} ${article.unitCost}</td>
+        <td> <input type="number" id="cantidadInput" value="${article.count}" /></td>
+        <td>${article.currency} <span id="subtotal">${article.unitCost * article.count}</span></td>
+    
+    </tr>`
+    return fila;
+}
+
 function showCarritodeCompras(carrito) {
     const carritoContainer = document.getElementById("carritoContainer");
     let htmlContentToAppend = `
@@ -33,7 +50,7 @@ function showCarritodeCompras(carrito) {
         </div> 
         <h3> Articulos a comprar</h3>
        
-        <table class="table">
+        <table id="contenidoDelCarrito" class="table">
             <tr>
                 <th>Imagen</th>
                 <th>Nombre</th>
@@ -41,21 +58,13 @@ function showCarritodeCompras(carrito) {
                 <th>Cantidad</th>
                 <th>Subtotal</th>
             </tr>
-            <tr>
-                <td>
-                <img src="${carrito.articles[0].image}" width="100" alt= "Imagen del articulo">
-                </td>
-                <td>${carrito.articles[0].name}</td>
-                <td>${carrito.articles[0].currency} ${carrito.articles[0].unitCost}</td>
-                <td> <input type="number" id="cantidadInput" value="${carrito.articles[0].count}" /></td>
-                <td>${carrito.articles[0].currency} <span id="subtotal">${carrito.articles[0].unitCost * carrito.articles[0].count}</span></td>
-            
-            </tr>
         </table>
     `;
     carritoContainer.innerHTML = htmlContentToAppend;
 
     // Obtén los elementos necesarios del DOM
+    const tablaDeContenidoCarrito = document.getElementById("contenidoDelCarrito");
+    tablaDeContenidoCarrito.append(crearElementoFilaProducto(carrito.articles[0]))
     const cantidadInput = document.getElementById('cantidadInput');
     const subtotalElement = document.getElementById('subtotal');
 
