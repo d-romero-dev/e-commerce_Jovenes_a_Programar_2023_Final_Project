@@ -70,9 +70,11 @@ function showCarritodeCompras(carrito) {
   const tablaDeContenidoCarrito = document.getElementById(
     'contenidoDelCarrito'
   );
-  tablaDeContenidoCarrito.append(
-    crearElementoFilaProducto(carrito.articles[0])
-  );
+
+  carrito.articles.forEach((article) => {
+    tablaDeContenidoCarrito.append(crearElementoFilaProducto(article));
+  });
+
   const cantidadInput = document.getElementById('cantidadInput');
   const subtotalElement = document.getElementById('subtotal');
 
