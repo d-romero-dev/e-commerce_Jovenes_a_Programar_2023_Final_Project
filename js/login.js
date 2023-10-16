@@ -1,32 +1,30 @@
 // Function del Login:
 
-function ingresar(){
+function ingresar() {
+  let user = document.getElementById('user').value;
 
-  let user= document.getElementById('user').value;
+  let pass = document.getElementById('pass').value;
 
-  let pass= document.getElementById('pass').value;
+  if (user.length > 0 && pass.length > 0) {
+    localStorage.setItem('user', user);
 
-  if(user.length>0 && pass.length>0){
-    localStorage.setItem("user", user);
-    
-    setUserIsLogged(true)
+    setUserIsLogged(true);
 
-    window.location.href="index.html";
+    window.location.href = 'index.html';
   }
 }
 
 // EventListener para detectar el click en login.html y redirigir a index.html
 
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function () {
   if (userIsLogged()) {
-    window.location.href = "index.html";
+    window.location.href = 'index.html';
   }
-  
-  document.getElementById('login').addEventListener('click', function(){
-    ingresar();
-  })
 
-})
+  document.getElementById('login').addEventListener('click', function () {
+    ingresar();
+  });
+});
 
 /**
  * Obtener estado de logged del usuario
@@ -34,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function(){
  * Obtiene del localStorage el valor de la data de key 'userIsLogged' en el localStorage
  */
 function userIsLogged() {
-  return localStorage.getItem('userIsLogged') === "true";
+  return localStorage.getItem('userIsLogged') === 'true';
 }
 
 /**
