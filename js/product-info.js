@@ -320,7 +320,7 @@ function setProductId(id) {
 
 // Función para guardar los productos en el carrito
 function setProductCart(){
-    if (carritofinal < 1 || carritofinal == null || !cart.articles.some((product)=> product.id== productInfo.id)){
+    if ((carritofinal < 1 || carritofinal == null) && !cart.articles.some((product)=> product.id== productInfo.id)){
         // obtener todo el objeto producto
         // insertar el objeto producto en el carrito
         cart.articles.push({count:1,image:productInfo.images[0],unitCost:productInfo.cost,...productInfo});
@@ -328,6 +328,7 @@ function setProductCart(){
     } else if(cart.articles.some((product)=> product.id== productInfo.id)){
         cart.articles.forEach((product)=> {
             if(product.id== productInfo.id) product.count++
+            localStorage.setItem('cart', JSON.stringify(cart));
         })
     } else {
         carritofinal.push(productInfo.id);
