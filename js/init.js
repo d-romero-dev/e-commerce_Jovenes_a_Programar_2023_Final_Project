@@ -204,6 +204,7 @@ function generarMenuDesplegable() {
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.removeItem('user');
+        localStorage.removeItem('cart');
         setUserIsLogged(false);
         window.location.href = 'login.html';
       }
