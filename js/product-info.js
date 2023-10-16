@@ -5,7 +5,8 @@ const registerCommentForm = document.getElementById("comentar");
 const scoreInput = document.getElementById("inputScore");
 const prevButton = document.getElementById('prevBtn');
 const nextButton = document.getElementById('nextBtn');
-let carrito = [];
+let cart =  JSON.parse(localStorage.getItem("cart"));
+let articulosCarrito = [];
 let carritofinal = JSON.parse(localStorage.getItem("productCartID"));
 
 let currentIndex = 0;
@@ -163,7 +164,7 @@ function registroDeComentario(evento) {
 }
 
 let productID = localStorage.getItem("productID");  // Guarda el id del producto del almacenamiento local
-let productsInfoArray = []; 
+let productInfo = {}; 
 
 async function getProductInfo () {
     
@@ -235,7 +236,6 @@ function showProductsInfo() {
     let htmlContentToAppend = "";
     let productrelated = "";
 
-        let productInfo = productsInfoArray; 
 
         htmlContentToAppend += `
         <div class="">
@@ -320,12 +320,17 @@ function setProductId(id) {
 
 // Función para guardar los productos en el carrito
 function setProductCart(){
-    if (carritofinal < 1 || carritofinal == null){
-        carrito.push(productsInfoArray.id);
-    localStorage.setItem("productCartID", JSON.stringify(carrito));
-    } else
-    {
-        carritofinal.push(productsInfoArray.id);
+    if (carritofinal < 1 || carritofinal == null || !cart.articles.some((product)=> product.id== productInfo.id)){
+        // obtener todo el objeto producto
+        // insertar el objeto producto en el carrito
+        cart.articles.push({count:1,image:productInfo.images[0],unitCost:productInfo.cost,...productInfo});
+        localStorage.setItem('cart', JSON.stringify(cart));
+    } else if(cart.articles.some((product)=> product.id== productInfo.id)){
+        cart.articles.forEach((product)=> {
+            if(product.id== productInfo.id) product.count++
+        })
+    } else {
+        carritofinal.push(productInfo.id);
         localStorage.setItem("productCartID", JSON.stringify(carritofinal));
     }
     window.location = "cart.html"
@@ -337,7 +342,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     getJSONData(PRODUCT_INFO_URL + productID + EXT_TYPE).then(function(resultObj){
         if (resultObj.status === "ok") 
         {
-            productsInfoArray = resultObj.data;
+            productInfo = resultObj.data;
             showProductsInfo();
             getAndShowComentarios(productID);
         }
