@@ -32,9 +32,6 @@ async function getCarritoDeCompras() {
     })
     .then((carrito) => {
       return carrito;
-    })
-    .catch((error) => {
-      console.error('Error: ', error);
     });
 }
 
