@@ -1,6 +1,4 @@
-const APIcarrito =
-  'https://japceibal.github.io/emercado-api/user_cart/25801.json';
-let productCartID = JSON.parse(localStorage.getItem('productCartID'));
+let cart = JSON.parse(localStorage.getItem('cart'));
 let newProductsCart = [];
 
 function eliminarEnDesarrollo() {
@@ -8,23 +6,6 @@ function eliminarEnDesarrollo() {
     'alert alert-danger text-center'
   );
   alerta[0].remove();
-}
-
-function getCarritodeCompras() {
-  return fetch(APIcarrito)
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw Error(response.statusText);
-      }
-    })
-    .then((carrito) => {
-      return carrito;
-    })
-    .catch((error) => {
-      console.error('Error: ', error);
-    });
 }
 
 // Función para calcular y actualizar el subtotal
@@ -42,6 +23,7 @@ function calcularSubtotal(evento, subtotalElement, unitCost) {
 // Calcula el subtotal inicial al cargar la página
 // calcularSubtotal();
 
+// Recibe un objeto producto y lo procesa, retorna un DOM de una fila con la información del producto
 function crearElementoFilaProducto(article) {
   const fila = document.createElement('tr');
   fila.id = `filaProducto__${article.id}`;
@@ -100,34 +82,30 @@ function showCarritodeCompras(carrito) {
   });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  eliminarEnDesarrollo();
-  getCarritodeCompras().then(function (carrito) {
-    showCarritodeCompras(carrito);
-  });
-});
-
 // Función para agregar nuevos productos
-function showNewProduct(i) {
+function showNewProduct(idProducto) {
   htmlContentToAppendNewProduct = '';
 
   htmlContentToAppendNewProduct = `
                 <tr id="${newProductsCart.id}">
                     <th scope="row"><img src="${newProductsCart.images[0]}" style="max-width: 100px;"></th>
                     <td>${newProductsCart.name}</td>
-                    <td id="dolar${i}">${newProductsCart.currency}  ${newProductsCart.cost}</td>
-                    <td><input type="number" oninput="calcNewArticles(amount${i}.value,${newProductsCart.cost}, ${i}, '${newProductsCart.currency}')" id="amount${i}" value="1" class="form-control" style="width: 50px;" min="1"></td>
-                    <td>USD<label id="price${i}">${newProductsCart.cost}</label></td>
-                    <td><button type="button"  onclick="deleteNewArticle(${newProductsCart.id}, ${i})" class="btn btn-danger">Eliminar</button></td>
+                    <td id="dolar${idProducto}">${newProductsCart.currency}  ${newProductsCart.cost}</td>
+                    <td><input type="number" oninput="calcularSubtotal(unitCost${idProducto}.value,${newProductsCart.cost}, ${idProducto}, '${newProductsCart.currency}')" id="unitCost${idProducto}" value="1" class="form-control" style="width: 50px;" min="1"></td>
+                    <td>USD<label id="price${idProducto}">${newProductsCart.cost}</label></td>
+                    <td>(${newProductsCart.id}, ${idProducto})
                 </tr>
     `;
   document.getElementById('tbody').innerHTML += htmlContentToAppendNewProduct;
 }
 
-for (let i = 0; i < productCartID.length; i++) {
-  getJSONData(PRODUCT_INFO_URL + productCartID[i] + EXT_TYPE).then(function (
-    resultObj
-  ) {
+document.addEventListener('DOMContentLoaded', function () {
+  eliminarEnDesarrollo();
+  showCarritodeCompras(JSON.parse(localStorage.getItem('cart')));
+});
+
+for (let i = 0; i < cart.length; i++) {
+  getJSONData(PRODUCT_INFO_URL + cart[i] + EXT_TYPE).then(function (resultObj) {
     if (resultObj.status === 'ok') {
       newProductsCart = resultObj.data;
       showNewProduct(i);
