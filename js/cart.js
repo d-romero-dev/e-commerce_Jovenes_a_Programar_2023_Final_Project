@@ -1,5 +1,10 @@
 let cart = JSON.parse(localStorage.getItem('cart'));
 let newProductsCart = [];
+let standar = document.getElementById("tipoEnvio3");
+let express = document.getElementById("tipoEnvio2");
+let premium = document.getElementById("tipoEnvio1");
+const htmlSubtotal = document.getElementById("subtotalFinal");
+let envioTotal = document.getElementById("envioTotal");
 
 function eliminarEnDesarrollo() {
   let alerta = document.getElementsByClassName(
@@ -54,6 +59,7 @@ function crearElementoFilaProducto(article) {
 
 function showCarritodeCompras(carrito) {
   const carritoContainer = document.getElementById('carritoContainer');
+  const costArticle = articles.unitCost;
   let htmlContentToAppend = `
         <div class="text-center p-4"> 
             <h1> Carrito de compras </h1>
@@ -112,3 +118,68 @@ for (let i = 0; i < cart.length; i++) {
     }
   });
 }
+
+
+let subtotalFinal = 0;
+
+    // Función para calcular el subtotal
+    function calcArticles(amount, costArticle){
+      const price = document.getElementById("price");
+      const subtotal = amount * costArticle;
+      price.innerHTML = subtotal;
+      sumSubtotal ();
+     };
+  
+     function calcNewArticles(amount, costArticle, i, moneda){
+      const price = document.getElementById(`price${i}`);
+      let costo = 0;
+      if (moneda === "UYU") {costo = costArticle / 40} else {costo = costArticle};
+      let subtotal = amount * costo;
+      price.innerHTML = subtotal;
+      sumSubtotal ();
+     };
+
+    // Función para sumar todos los subtotales
+    function sumSubtotal(){
+    const priceHTML = parseFloat(document.getElementById("price").innerHTML);
+    subtotalFinal = priceHTML;
+    
+
+    for(let i = 0; i < productCartID.length; i++){
+    const priceiHTML = parseFloat(document.getElementById(`price${i}`).innerHTML);
+    subtotalFinal += priceiHTML;  
+
+    
+    htmlSubtotal.innerHTML = subtotalFinal;
+    
+    // Costo de envío por defecto:
+    if (standar.checked){
+        envioTotal.innerHTML = parseFloat(htmlSubtotal.innerHTML) * parseFloat(standar.value);
+    }
+    console.log(parseFloat(htmlSubtotal.innerHTML));
+
+    // Suma del envío
+    document.getElementById("total").innerHTML = parseFloat(htmlSubtotal.innerHTML) + parseFloat(envioTotal.innerHTML)
+
+    }
+   }
+  
+   // Costo de envío
+   standar.addEventListener('change', envio);
+   express.addEventListener('change', envio);
+   premium.addEventListener('change', envio);
+
+   function envio(){
+       if (standar.checked){
+           envioTotal.innerHTML = parseFloat(htmlSubtotal.innerHTML) * parseFloat(standar.value);
+           document.getElementById("total").innerHTML = parseFloat(htmlSubtotal.innerHTML) + parseFloat(envioTotal.innerHTML)
+       }
+       if (express.checked){
+            envioTotal.innerHTML = parseFloat(htmlSubtotal.innerHTML) * parseFloat(express.value);
+           document.getElementById("total").innerHTML = parseFloat(htmlSubtotal.innerHTML) + parseFloat(envioTotal.innerHTML)
+       }
+       if (premium.checked){
+            envioTotal.innerHTML = parseFloat(htmlSubtotal.innerHTML) * parseFloat(premium.value);
+           document.getElementById("total").innerHTML = parseFloat(htmlSubtotal.innerHTML) + parseFloat(envioTotal.innerHTML)
+       }
+   };
