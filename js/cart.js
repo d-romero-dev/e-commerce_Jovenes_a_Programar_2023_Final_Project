@@ -107,7 +107,26 @@ function showNewProduct(idProducto) {
 
 document.addEventListener('DOMContentLoaded', function () {
   eliminarEnDesarrollo();
-  showCarritodeCompras(JSON.parse(localStorage.getItem('cart')));
+  const cart = JSON.parse(localStorage.getItem('cart'));
+  showCarritodeCompras(cart);
+  // Obtener elemento del DOM
+  const tablaDeContenidoCarrito = document.getElementById('contenidoDelCarrito');
+  // Agregar un evento de entrada para guardar los cambios en el carrito
+  cart.articles.forEach((product) => {
+    const cantidadInput = document.getElementById(`cantidadInput__${product.id}`);
+    cantidadInput.addEventListener('input', (evento) => {
+      const cantidad = parseInt(evento.target.value);
+      if (!isNaN(cantidad) && cantidad >= 0) {
+        // Actualizar la cantidad en el carrito
+        product.count = cantidad;
+        // Guardar el carrito actualizado en el localStorage
+        localStorage.setItem('cart', JSON.stringify(cart));
+        // Recalcular el subtotal
+        const subtotalElement = document.getElementById(`subtotal__${product.id}`);
+        subtotalElement.textContent = `${product.unitCost * cantidad}`;
+      }
+    });
+  });
 });
 
 for (let i = 0; i < cart.length; i++) {
