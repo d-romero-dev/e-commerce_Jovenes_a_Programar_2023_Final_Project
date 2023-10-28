@@ -102,16 +102,42 @@
           <input type="text" class="form-control" id="esquina" aria-describedby="description">
           <small id="description" class="form-text text-muted">Indique la calle correspondiente a su esquina.</small>
         </div>
-     
       </form>
+
+      <h3>Costos</h3>
+      
+      <div class="list-group-item list-group-item-action">
+        <div class="row">
+            <div class="col">
+                <div class="d-flex w-100 justify-content-between">
+                    <p class="mb-1">Subtotal</p>
+                    <small class="text-muted">USD <small id="subtotalFinal"></small></small>
+                </div>
+                <p class="mb-1 text-muted">Costo unitario del producto por cantidad</p>
+            </div>
+        </div>
     </div>
+    <div class="list-group-item list-group-item-action">
+      <div class="row">
+          <div class="col">
+              <div class="d-flex w-100 justify-content-between">
+                  <p class="mb-1">Costo de envio</p>
+                  <small class="text-muted">USD <small id="envioTotal"></small></small>
+              </div>
+              <p class="mb-1 text-muted">Según el tipo de envio</p>
+          </div>
+      </div>
     </div>
-    
-
-
-
-
-
+    <div class="list-group-item list-group-item-action">
+      <div class="row">
+          <div class="col">
+              <div class="d-flex w-100 justify-content-between">
+                  <p class="mb-1">Total ($)</p>
+                  <small class="text-muted">USD<small id="total"></small></small>
+              </div>
+          </div>
+      </div>
+    </div>
   </main>
 
   <footer class="text-muted">
