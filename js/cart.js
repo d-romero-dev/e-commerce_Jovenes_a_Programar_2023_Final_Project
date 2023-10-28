@@ -1,8 +1,8 @@
 let cart = JSON.parse(localStorage.getItem('cart'));
 let newProductsCart = [];
-let standar = document.getElementById("tipoEnvio3");
-let express = document.getElementById("tipoEnvio2");
-let premium = document.getElementById("tipoEnvio1");
+let standar = document.getElementById("envio3");
+let express = document.getElementById("envio2");
+let premium = document.getElementById("envio1");
 const htmlSubtotal = document.getElementById("subtotalFinal");
 let envioTotal = document.getElementById("envioTotal");
 
