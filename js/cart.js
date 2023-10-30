@@ -57,7 +57,7 @@ function crearElementoFilaProducto(article) {
         <td>${article.currency} ${article.unitCost}</td>
         <td> <input type="number" id="cantidadInput__${article.id}" value="${article.count}" /></td>
         <td>${article.currency} <span id="subtotal__${article.id}">${article.unitCost * article.count}</span></td>
-        <td><button class="btn-danger" onclick="eliminarProducto(${article.id})">Eliminar</button></td>`;
+        <td><button type="button" class="btn btn-danger bg-danger" onclick="eliminarProducto(${article.id})">Eliminar</button></td>`;
   
   // Obtener elemento subtotal desde el elemento fila
   const subtotalElement = fila.querySelector(`#subtotal__${article.id}`);
