@@ -492,3 +492,8 @@ div.form {
 button {
   margin: 10px;
 }
+
+td>input.form-control {
+  width: fit-content;
+  min-width: 50%;
+}

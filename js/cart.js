@@ -33,9 +33,9 @@ function crearElementoFilaProducto(article) {
         </td>
         <td>${article.name}</td>
         <td>${article.currency} ${article.unitCost}</td>
-        <td> <input type="number" id="cantidadInput__${article.id}" value="${
+        <td> <input class="form-control" min="1" required type="number" id="cantidadInput__${article.id}" value="${
     article.count
-  }" /></td>
+  }"/></td>
         <td>${article.currency} <span id="subtotal__${article.id}">${
     article.unitCost * article.count
   }</span></td>`;
@@ -112,3 +112,39 @@ for (let i = 0; i < cart.length; i++) {
     }
   });
 }
+
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+
+function showAlertSuccess() {
+    //document.getElementById("alert-success").classList.remove("fade");
+    document.getElementById("alert-success").classList.add("show");
+    
+  }
+
+  
+document.getElementById("form").addEventListener("submit", function(event){
+  if (document.getElementById("form").checkValidity()){
+    event.preventDefault();
+    showAlertSuccess();
+  }
+});
+
+
