@@ -18,6 +18,8 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.0/dist/sweetalert2.min.css"
     />
+    
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.0/dist/sweetalert2.all.min.js"></script>
   </head>
 
@@ -138,6 +140,87 @@
           </div>
       </div>
     </div>
+
+    <!--Forma de Pago-->
+    <h3 class="mt-3">Forma de Pago</h3>
+
+    <div class="list-group-item list-group-item-action">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formaPagoModal">
+            Seleccionar
+        </button>
+    </div>
+
+    <div class="modal fade" id="formaPagoModal" tabindex="-1" aria-labelledby="formaPagoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="formaPagoModalLabel">Forma de Pago</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="formaPago" id="tarjetaCredito">
+                            <label class="form-check-label" for="tarjetaCredito">
+                                Tarjeta de Crédito
+                            </label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="numeroTarjeta" class="form-label">Número de Tarjeta</label>
+                            <input type="number" class="form-control" id="numeroTarjeta">
+                        </div>
+                        <div class="mb-3">
+                            <label for="codigoSeguridad" class="form-label">Código de Seguridad</label>
+                            <input type="number" class="form-control" id="codigoSeguridad" maxlength="3">
+                        </div>
+                        <div class="mb-3">
+                            <label for="vencimiento" class="form-label">Vencimiento (MM/AA)</label>
+                            <select id="mes" class="form-control" name="mes">
+                                <option value="" disabled selected>Mes</option>
+                                <option value="01">Enero</option>
+                                <option value="02">Febrero</option>
+                                <option value="03">Marzo</option>
+                                <option value="04">Abril</option>
+                                <option value="05">Mayo</option>
+                                <option value="06">Junio</option>
+                                <option value="07">Julio</option>
+                                <option value="08">Agosto</option>
+                                <option value="09">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
+                            </select>
+                            <select id="anio" class="form-control" name="anio">
+                                <option value="" disabled selected>Año</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                                <option value="2027">2027</option>
+                                <option value="2028">2028</option>
+                                <option value="2029">2029</option>
+                                <option value="2030">2030</option>
+                            </select>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="formaPago" id="transferenciaBancaria">
+                            <label class="form-check-label" for="transferenciaBancaria">
+                                Transferencia Bancaria
+                            </label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="numeroCuentaBancaria" class="form-label">Número de Cuenta Bancaria</label>
+                            <input type="number" class="form-control" id="numeroCuentaBancaria">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        
   </main>
 
   <footer class="text-muted">
@@ -156,9 +239,10 @@
       <div></div>
     </div>
   </div>
+  
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
-  <script src="js/cart.js"></script>
+  <script src="js/cart.js"></script>  
 </body>
 
 </html>
