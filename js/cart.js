@@ -107,6 +107,23 @@ function showCarritodeCompras(carrito) {
   })
 }
 
+function eliminarProducto(productId) {
+  // Obtener el carrito del localStorage
+  let cart = JSON.parse(localStorage.getItem('cart'));
+
+  // Filtrar el carrito para borrar el producto por ID
+  cart.articles = cart.articles.filter((product) => product.id !== productId);
+
+  // Guardar el carrito actualizado
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+  // Actualizar la visualización del carrito
+  showCarritodeCompras(cart);
+
+  // Actualizar subtotal
+  sumSubtotal()
+}
+
 
 document.addEventListener('DOMContentLoaded', function () {
   eliminarEnDesarrollo();
