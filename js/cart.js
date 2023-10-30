@@ -182,3 +182,46 @@ function envio(){
         document.getElementById("total").innerHTML = parseFloat(htmlSubtotal.innerHTML) + parseFloat(envioTotal.innerHTML)
     }
 };
+   
+// Funcionalidad Forma de Pago: Desactivaciom de campos no seleccionados.
+
+const tarjetaCreditoRadio = document.getElementById("tarjetaCredito");
+const transferenciaBancariaRadio = document.getElementById("transferenciaBancaria");
+const numeroTarjetaInput = document.getElementById("numeroTarjeta");
+const codigoSeguridadInput = document.getElementById("codigoSeguridad");
+const mesSelect = document.getElementById("mes");
+const anioSelect = document.getElementById("anio");
+const numeroCuentaBancariaInput = document.getElementById("numeroCuentaBancaria");
+
+// Función para deshabilitar campos de tarjeta de crédito
+function deshabilitarTarjetaCredito() {
+  numeroTarjetaInput.disabled = false;
+  codigoSeguridadInput.disabled = false;
+  mesSelect.disabled = false;
+  anioSelect.disabled = false;
+  numeroCuentaBancariaInput.disabled = true;
+}
+
+// Función para deshabilitar campos de transferencia bancaria
+function deshabilitarTransferenciaBancaria() {
+  numeroCuentaBancariaInput.disabled = false;
+  numeroTarjetaInput.disabled = true;
+  codigoSeguridadInput.disabled = true;
+  mesSelect.disabled = true;
+  anioSelect.disabled = true;
+}
+
+// Agrega eventos "change" a los botones de radio
+tarjetaCreditoRadio.addEventListener("change", function () {
+  if (tarjetaCreditoRadio.checked) {
+    deshabilitarTarjetaCredito();
+  }
+});
+
+transferenciaBancariaRadio.addEventListener("change", function () {
+  if (transferenciaBancariaRadio.checked) {
+    deshabilitarTransferenciaBancaria();
+  }
+});
+
+
