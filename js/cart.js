@@ -59,7 +59,6 @@ function crearElementoFilaProducto(article) {
 
 function showCarritodeCompras(carrito) {
   const carritoContainer = document.getElementById('carritoContainer');
-  const costArticle = articles.unitCost;
   let htmlContentToAppend = `
         <div class="text-center p-4"> 
             <h1> Carrito de compras </h1>
