@@ -1,8 +1,8 @@
 let cart = JSON.parse(localStorage.getItem('cart'));
 let newProductsCart = [];
-let standar = document.getElementById("option1");
-let express = document.getElementById("option2");
-let premium = document.getElementById("option3");
+let standar = document.getElementById("tipoEnvio1");
+let express = document.getElementById("tipoEnvio2");
+let premium = document.getElementById("tipoEnvio3");
 const htmlSubtotal = document.getElementById("subtotalFinal");
 let envioTotal = document.getElementById("envioTotal");
 
@@ -203,7 +203,7 @@ let subtotalFinal = 0;
    };
 
    
-// Funcionalidad Forma de Pago: Desactivaciom de campos no seleccionados.
+// Funcionalidad Forma de Pago: Desactivacion de campos no seleccionados.
 
 const tarjetaCreditoRadio = document.getElementById("tarjetaCredito");
 const transferenciaBancariaRadio = document.getElementById("transferenciaBancaria");
@@ -212,6 +212,7 @@ const codigoSeguridadInput = document.getElementById("codigoSeguridad");
 const mesSelect = document.getElementById("mes");
 const anioSelect = document.getElementById("anio");
 const numeroCuentaBancariaInput = document.getElementById("numeroCuentaBancaria");
+const botonSeleccionarFormaPago = document.getElementById("botonSelecionarFormaPago");
 
 // Función para deshabilitar campos de tarjeta de crédito
 function deshabilitarTarjetaCredito() {
@@ -244,27 +245,59 @@ transferenciaBancariaRadio.addEventListener("change", function () {
   }
 });
 
+function validarInputsTarjetaCredito(){
+  return (
+    tarjetaCreditoRadio.checked &&
+    numeroTarjetaInput.checkValidity() &&
+    codigoSeguridadInput.checkValidity() &&
+    mesSelect.checkValidity() &&
+    anioSelect.checkValidity()
+  )
+}
 
+function validarInputsTransferenciaBancaria(){
+  return (
+      transferenciaBancariaRadio.checked &&
+      numeroCuentaBancariaInput.checkValidity()
+    )
+}
 
-(function () {
-  'use strict'
+function validarFormaDePago(){
+  const formaDePagoValida = 
+    validarInputsTarjetaCredito() ||
+    validarInputsTransferenciaBancaria();
+  insertarValidacion(botonSeleccionarFormaPago, formaDePagoValida)
+  return formaDePagoValida
+}
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation')
+// Recibe un elemento del dom y un valor booleano que representa el estado de validacion
+// asigna las clases de bootstrap "is-valid" o "is-invalid" al elemento recibido acorde
+// al estado de validacion
+function insertarValidacion(
+  elementoDelDom,
+  estadoValidacion
+) {
+  elementoDelDom.classList.remove(
+    !estadoValidacion ? 'is-valid' : 'is-invalid'
+  );
+  elementoDelDom.classList.add(estadoValidacion ? 'is-valid' : 'is-invalid');
+  return estadoValidacion;
+}
 
-  // Loop over them and prevent submission
-  Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-      form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
+// (function () {
+//   'use strict'
 
-        form.classList.add('was-validated')
-      }, false)
-    })
-})()
+//   // Fetch all the forms we want to apply custom Bootstrap validation styles to
+//   var forms = document.querySelectorAll('.needs-validation')
+
+//   // Loop over them and prevent submission
+//   Array.prototype.slice.call(forms)
+//     .forEach(function (form) {
+//       form.addEventListener('submit', function (event) {
+
+//       }, false)
+//     })
+// })()
 
 function showAlertSuccess() {
     //document.getElementById("alert-success").classList.remove("fade");
@@ -272,8 +305,20 @@ function showAlertSuccess() {
     
   }
 
+
   
+
+
 document.getElementById("form").addEventListener("submit", function(event){
+  const esFormaDePagoValida = validarFormaDePago();
+  if (!form.checkValidity() || !esFormaDePagoValida) {
+    event.preventDefault()
+    event.stopPropagation()
+  }
+  event.preventDefault()
+
+  form.classList.add('was-validated')
+
   if (document.getElementById("form").checkValidity()){
     event.preventDefault();
     showAlertSuccess();
