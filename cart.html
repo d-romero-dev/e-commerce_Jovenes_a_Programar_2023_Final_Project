@@ -66,11 +66,15 @@
           <h3>Tipo de Envío</h3>
 
           <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
-            <label class="btn btn-outline-warning mb-3 btn-block">
+            <label
+              class="btn btn-outline-warning mb-3 btn-block"
+              for="tipoEnvio1"
+            >
               <input
                 type="radio"
-                name="options"
-                id="option1"
+                name="tipoEnvio"
+                value="0.15"
+                id="tipoEnvio1"
                 autocomplete="off"
                 required
                 class="form-check-input"
@@ -78,11 +82,12 @@
               Premium 2 a 5 Días (+15%)
             </label>
 
-            <label class="btn btn-outline-info mb-3 btn-block">
+            <label class="btn btn-outline-info mb-3 btn-block" for="tipoEnvio2">
               <input
                 type="radio"
-                name="options"
-                id="option2"
+                name="tipoEnvio"
+                value="0.15"
+                id="tipoEnvio2"
                 autocomplete="off"
                 required
                 class="form-check-input"
@@ -90,11 +95,12 @@
               Express 5 a 8 Días (+7%)
             </label>
 
-            <label class="btn btn-outline-dark mb-3 btn-block">
+            <label class="btn btn-outline-dark mb-3 btn-block" for="tipoEnvio3">
               <input
                 type="radio"
-                name="options"
-                id="option3"
+                name="tipoEnvio"
+                value="0.15"
+                id="tipoEnvio3"
                 autocomplete="off"
                 class="form-check-input"
                 required
@@ -170,6 +176,48 @@
           </div>
         </div>
       </form>
+
+      <h3>Costos</h3>
+
+      <div class="list-group-item list-group-item-action">
+        <div class="row">
+          <div class="col">
+            <div class="d-flex w-100 justify-content-between">
+              <p class="mb-1">Subtotal</p>
+              <small class="text-muted"
+                >USD <small id="subtotalFinal"></small
+              ></small>
+            </div>
+            <p class="mb-1 text-muted">
+              Costo unitario del producto por cantidad
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="list-group-item list-group-item-action">
+        <div class="row">
+          <div class="col">
+            <div class="d-flex w-100 justify-content-between">
+              <p class="mb-1">Costo de envio</p>
+              <small class="text-muted"
+                >USD <small id="envioTotal"></small
+              ></small>
+            </div>
+            <p class="mb-1 text-muted">Según el tipo de envio</p>
+          </div>
+        </div>
+      </div>
+      <div class="list-group-item list-group-item-action">
+        <div class="row">
+          <div class="col">
+            <div class="d-flex w-100 justify-content-between">
+              <p class="mb-1">Total ($)</p>
+              <small class="text-muted">USD<small id="total"></small></small>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div
         class="alert alert-success alert-dismissible fade"
         role="alert"
