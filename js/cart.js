@@ -64,10 +64,12 @@ function crearElementoFilaProducto(article) {
   // Agrega un evento de entrada al campo de cantidad para llamar a la función calcularSubtotal() cuando cambie el valor
   fila
     .querySelector(`#cantidadInput__${article.id}`)
-    .addEventListener('input', (evento) => 
-      calcularSubtotal(evento, subtotalElement, article.unitCost)
-    return fila;
-      ;
+    .addEventListener('input', (evento) => {
+      const articuloSubtotal = calcularSubtotal(evento, subtotalElement, article.unitCost);
+      costosCart.articulos[article.id] = {subtotal: articuloSubtotal};
+    }
+    );
+  return fila;
 }
 
 function showCarritodeCompras(carrito) {
@@ -98,6 +100,10 @@ function showCarritodeCompras(carrito) {
   carrito.articles.forEach((article) => {
     tablaDeContenidoCarrito.append(crearElementoFilaProducto(article));
   });
+
+  tablaDeContenidoCarrito.addEventListener('input', () =>{
+    sumSubtotal()
+  })
 }
 
 
@@ -123,44 +129,36 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   });
+  sumSubtotal();
 });
 
 
 
-let subtotalFinal = 0;
-
 // Función para calcular el subtotal
 function calcArticles(amount, costArticle){
-  const price = document.getElementById("price");
   const subtotalArticulo = amount * costArticle;
-  price.innerHTML = subtotalArticulo;
-  sumSubtotal ();
+  return subtotalArticulo;
   };
 
 
-// Función para sumar todos los subtotales
+// Función para calcular el subtotal del cart sumando todos los subtotales de los articulos
 function sumSubtotal(){
-const priceHTML = parseFloat(document.getElementById("price").innerHTML);
-subtotalFinal = priceHTML;
+cart = JSON.parse(localStorage.getItem('cart'));
+// reseteo el subtotal del cart
+costosCart.subtotal.costo = 0;
 
+for(let i = 0; i < cart.articles.length; i++){
+  // tomo el precio de una unidad del producto
+  const precioUnidad = parseFloat(cart.articles[i].unitCost);
+  // tomo la cantidad de unidades del producto
+  const cantidadUnidades = parseFloat(cart.articles[i].count);
 
-for(let i = 0; i < productCartID.length; i++){
-  const priceiHTML = parseFloat(document.getElementById(`price${i}`).innerHTML);
-  subtotalFinal += priceiHTML;  
+  // Sumo el subtotal del articulo al subtotal del cart
+  costosCart.subtotal.costo += calcArticles(cantidadUnidades, precioUnidad);
+}
 
-
-  htmlSubtotal.innerHTML = subtotalFinal;
-
-  // Costo de envío por defecto:
-  if (standar.checked){
-      envioTotal.innerHTML = parseFloat(htmlSubtotal.innerHTML) * parseFloat(standar.value);
-  }
-  console.log(parseFloat(htmlSubtotal.innerHTML));
-
-  // Suma del envío
-  document.getElementById("total").innerHTML = parseFloat(htmlSubtotal.innerHTML) + parseFloat(envioTotal.innerHTML)
-
-  }
+// Inserto el valor del subtotal del cart en el html
+costosCart.subtotal.htmlElement.innerHTML = costosCart.subtotal.costo;
 }
 
 // Costo de envío
@@ -168,19 +166,9 @@ standar.addEventListener('change', envio);
 express.addEventListener('change', envio);
 premium.addEventListener('change', envio);
 
-function envio(){
-    if (standar.checked){
-        envioTotal.innerHTML = parseFloat(htmlSubtotal.innerHTML) * parseFloat(standar.value);
-        document.getElementById("total").innerHTML = parseFloat(htmlSubtotal.innerHTML) + parseFloat(envioTotal.innerHTML)
-    }
-    if (express.checked){
-        envioTotal.innerHTML = parseFloat(htmlSubtotal.innerHTML) * parseFloat(express.value);
-        document.getElementById("total").innerHTML = parseFloat(htmlSubtotal.innerHTML) + parseFloat(envioTotal.innerHTML)
-    }
-    if (premium.checked){
-        envioTotal.innerHTML = parseFloat(htmlSubtotal.innerHTML) * parseFloat(premium.value);
-        document.getElementById("total").innerHTML = parseFloat(htmlSubtotal.innerHTML) + parseFloat(envioTotal.innerHTML)
-    }
+function envio(event){
+  envioTotal.innerHTML = Math.round(parseFloat(costosCart.subtotal.costo) * parseFloat(event.target.value));
+  document.getElementById("total").innerHTML = parseFloat(costosCart.subtotal.costo) + parseFloat(envioTotal.innerHTML)
 };
    
 // Funcionalidad Forma de Pago: Desactivaciom de campos no seleccionados.
