@@ -38,13 +38,10 @@ function crearElementoFilaProducto(article) {
         </td>
         <td>${article.name}</td>
         <td>${article.currency} ${article.unitCost}</td>
-        <td> <input type="number" id="cantidadInput__${article.id}" value="${
-    article.count
-  }" /></td>
-        <td>${article.currency} <span id="subtotal__${article.id}">${
-    article.unitCost * article.count
-  }</span></td>`;
-
+        <td> <input type="number" id="cantidadInput__${article.id}" value="${article.count}" /></td>
+        <td>${article.currency} <span id="subtotal__${article.id}">${article.unitCost * article.count}</span></td>
+        <td><button class="btn-danger" onclick="eliminarProducto(${article.id})">Eliminar</button></td>`;
+  
   // Obtener elemento subtotal desde el elemento fila
   const subtotalElement = fila.querySelector(`#subtotal__${article.id}`);
 
@@ -102,6 +99,20 @@ function showNewProduct(idProducto) {
                 </tr>
     `;
   document.getElementById('tbody').innerHTML += htmlContentToAppendNewProduct;
+}
+
+function eliminarProducto(productId) {
+  // Obtener el carrito del localStorage
+  let cart = JSON.parse(localStorage.getItem('cart'));
+
+  // Filtrar el carrito para borrar el producto por ID
+  cart.articles = cart.articles.filter((product) => product.id !== productId);
+
+  // Guardar el carrito actualizado
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+  // Actualizar la visualización del carrito
+  showCarritodeCompras(cart);
 }
 
 document.addEventListener('DOMContentLoaded', function () {
