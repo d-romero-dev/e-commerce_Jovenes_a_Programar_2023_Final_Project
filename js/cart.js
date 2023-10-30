@@ -1,5 +1,4 @@
 let cart = JSON.parse(localStorage.getItem('cart'));
-let newProductsCart = [];
 let standar = document.getElementById("tipoEnvio3");
 let express = document.getElementById("tipoEnvio2");
 let premium = document.getElementById("tipoEnvio1");
@@ -87,22 +86,6 @@ function showCarritodeCompras(carrito) {
   });
 }
 
-// Función para agregar nuevos productos
-function showNewProduct(idProducto) {
-  htmlContentToAppendNewProduct = '';
-
-  htmlContentToAppendNewProduct = `
-                <tr id="${newProductsCart.id}">
-                    <th scope="row"><img src="${newProductsCart.images[0]}" style="max-width: 100px;"></th>
-                    <td>${newProductsCart.name}</td>
-                    <td id="dolar${idProducto}">${newProductsCart.currency}  ${newProductsCart.cost}</td>
-                    <td><input type="number" oninput="calcularSubtotal(unitCost${idProducto}.value,${newProductsCart.cost}, ${idProducto}, '${newProductsCart.currency}')" id="unitCost${idProducto}" value="1" class="form-control" style="width: 50px;" min="1"></td>
-                    <td>USD<label id="price${idProducto}">${newProductsCart.cost}</label></td>
-                    <td>(${newProductsCart.id}, ${idProducto})
-                </tr>
-    `;
-  document.getElementById('tbody').innerHTML += htmlContentToAppendNewProduct;
-}
 
 document.addEventListener('DOMContentLoaded', function () {
   eliminarEnDesarrollo();
@@ -128,14 +111,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-for (let i = 0; i < cart.length; i++) {
-  getJSONData(PRODUCT_INFO_URL + cart[i] + EXT_TYPE).then(function (resultObj) {
-    if (resultObj.status === 'ok') {
-      newProductsCart = resultObj.data;
-      showNewProduct(i);
-    }
-  });
-}
 
 
 let subtotalFinal = 0;
