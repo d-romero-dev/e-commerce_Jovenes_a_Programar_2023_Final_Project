@@ -134,7 +134,7 @@
               <div class="form-group mb-3">
                 <label for="numero">Número:</label>
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
                   id="numero"
                   aria-describedby="description"
@@ -177,42 +177,44 @@
         </div>
       </form>
 
-      <h3>Costos</h3>
+      <div class="container">
+        <h3>Costos</h3>
 
-      <div class="list-group-item list-group-item-action">
-        <div class="row">
-          <div class="col">
-            <div class="d-flex w-100 justify-content-between">
-              <p class="mb-1">Subtotal</p>
-              <small class="text-muted"
-                >USD <small id="subtotalFinal"></small
-              ></small>
+        <div class="list-group-item list-group-item-action">
+          <div class="row">
+            <div class="col">
+              <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">Subtotal</p>
+                <small class="text-muted"
+                  >USD <small id="subtotalFinal"></small
+                ></small>
+              </div>
+              <p class="mb-1 text-muted">
+                Costo unitario del producto por cantidad
+              </p>
             </div>
-            <p class="mb-1 text-muted">
-              Costo unitario del producto por cantidad
-            </p>
           </div>
         </div>
-      </div>
-      <div class="list-group-item list-group-item-action">
-        <div class="row">
-          <div class="col">
-            <div class="d-flex w-100 justify-content-between">
-              <p class="mb-1">Costo de envio</p>
-              <small class="text-muted"
-                >USD <small id="envioTotal"></small
-              ></small>
+        <div class="list-group-item list-group-item-action">
+          <div class="row">
+            <div class="col">
+              <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">Costo de envio</p>
+                <small class="text-muted"
+                  >USD <small id="envioTotal"></small
+                ></small>
+              </div>
+              <p class="mb-1 text-muted">Según el tipo de envio</p>
             </div>
-            <p class="mb-1 text-muted">Según el tipo de envio</p>
           </div>
         </div>
-      </div>
-      <div class="list-group-item list-group-item-action">
-        <div class="row">
-          <div class="col">
-            <div class="d-flex w-100 justify-content-between">
-              <p class="mb-1">Total ($)</p>
-              <small class="text-muted">USD<small id="total"></small></small>
+        <div class="list-group-item list-group-item-action">
+          <div class="row">
+            <div class="col">
+              <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">Total ($)</p>
+                <small class="text-muted">USD<small id="total"></small></small>
+              </div>
             </div>
           </div>
         </div>
