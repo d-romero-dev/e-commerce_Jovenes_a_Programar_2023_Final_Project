@@ -2,8 +2,25 @@ let cart = JSON.parse(localStorage.getItem('cart'));
 let standar = document.getElementById("tipoEnvio3");
 let express = document.getElementById("tipoEnvio2");
 let premium = document.getElementById("tipoEnvio1");
+
 const htmlSubtotal = document.getElementById("subtotalFinal");
 let envioTotal = document.getElementById("envioTotal");
+
+const costosCart = {
+  articulos: {},
+  subtotal: {
+    htmlElement: document.getElementById("subtotalFinal"),
+    costo: 0,
+  },
+  envio: {
+    htmlElement: document.getElementById("envioTotal"),
+    costo: 0,
+  },
+  total: {
+    htmlElement: document.getElementById("total"),
+    costo: 0,
+  },
+}
 
 function eliminarEnDesarrollo() {
   let alerta = document.getElementsByClassName(
@@ -22,6 +39,7 @@ function calcularSubtotal(evento, subtotalElement, unitCost) {
 
   // Actualiza el contenido del elemento de subtotal en la página
   subtotalElement.textContent = `${subtotal}`;
+  return subtotal;
 }
 
 // Calcula el subtotal inicial al cargar la página
@@ -37,12 +55,8 @@ function crearElementoFilaProducto(article) {
         </td>
         <td>${article.name}</td>
         <td>${article.currency} ${article.unitCost}</td>
-        <td> <input type="number" id="cantidadInput__${article.id}" value="${
-    article.count
-  }" /></td>
-        <td>${article.currency} <span id="subtotal__${article.id}">${
-    article.unitCost * article.count
-  }</span></td>`;
+        <td> <input type="number" id="cantidadInput__${article.id}" value="${article.count}" /></td>
+        <td>${article.currency} <span id="subtotal__${article.id}">${article.unitCost * article.count}</span></td>`;
 
   // Obtener elemento subtotal desde el elemento fila
   const subtotalElement = fila.querySelector(`#subtotal__${article.id}`);
@@ -50,10 +64,10 @@ function crearElementoFilaProducto(article) {
   // Agrega un evento de entrada al campo de cantidad para llamar a la función calcularSubtotal() cuando cambie el valor
   fila
     .querySelector(`#cantidadInput__${article.id}`)
-    .addEventListener('input', (evento) =>
+    .addEventListener('input', (evento) => 
       calcularSubtotal(evento, subtotalElement, article.unitCost)
-    );
-  return fila;
+    return fila;
+      ;
 }
 
 function showCarritodeCompras(carrito) {
@@ -115,64 +129,56 @@ document.addEventListener('DOMContentLoaded', function () {
 
 let subtotalFinal = 0;
 
-    // Función para calcular el subtotal
-    function calcArticles(amount, costArticle){
-      const price = document.getElementById("price");
-      const subtotal = amount * costArticle;
-      price.innerHTML = subtotal;
-      sumSubtotal ();
-     };
-  
-     function calcNewArticles(amount, costArticle, i, moneda){
-      const price = document.getElementById(`price${i}`);
-      let costo = 0;
-      if (moneda === "UYU") {costo = costArticle / 40} else {costo = costArticle};
-      let subtotal = amount * costo;
-      price.innerHTML = subtotal;
-      sumSubtotal ();
-     };
+// Función para calcular el subtotal
+function calcArticles(amount, costArticle){
+  const price = document.getElementById("price");
+  const subtotalArticulo = amount * costArticle;
+  price.innerHTML = subtotalArticulo;
+  sumSubtotal ();
+  };
 
-    // Función para sumar todos los subtotales
-    function sumSubtotal(){
-    const priceHTML = parseFloat(document.getElementById("price").innerHTML);
-    subtotalFinal = priceHTML;
-    
 
-    for(let i = 0; i < productCartID.length; i++){
-    const priceiHTML = parseFloat(document.getElementById(`price${i}`).innerHTML);
-    subtotalFinal += priceiHTML;  
+// Función para sumar todos los subtotales
+function sumSubtotal(){
+const priceHTML = parseFloat(document.getElementById("price").innerHTML);
+subtotalFinal = priceHTML;
 
-    
-    htmlSubtotal.innerHTML = subtotalFinal;
-    
-    // Costo de envío por defecto:
+
+for(let i = 0; i < productCartID.length; i++){
+  const priceiHTML = parseFloat(document.getElementById(`price${i}`).innerHTML);
+  subtotalFinal += priceiHTML;  
+
+
+  htmlSubtotal.innerHTML = subtotalFinal;
+
+  // Costo de envío por defecto:
+  if (standar.checked){
+      envioTotal.innerHTML = parseFloat(htmlSubtotal.innerHTML) * parseFloat(standar.value);
+  }
+  console.log(parseFloat(htmlSubtotal.innerHTML));
+
+  // Suma del envío
+  document.getElementById("total").innerHTML = parseFloat(htmlSubtotal.innerHTML) + parseFloat(envioTotal.innerHTML)
+
+  }
+}
+
+// Costo de envío
+standar.addEventListener('change', envio);
+express.addEventListener('change', envio);
+premium.addEventListener('change', envio);
+
+function envio(){
     if (standar.checked){
         envioTotal.innerHTML = parseFloat(htmlSubtotal.innerHTML) * parseFloat(standar.value);
+        document.getElementById("total").innerHTML = parseFloat(htmlSubtotal.innerHTML) + parseFloat(envioTotal.innerHTML)
     }
-    console.log(parseFloat(htmlSubtotal.innerHTML));
-
-    // Suma del envío
-    document.getElementById("total").innerHTML = parseFloat(htmlSubtotal.innerHTML) + parseFloat(envioTotal.innerHTML)
-
+    if (express.checked){
+        envioTotal.innerHTML = parseFloat(htmlSubtotal.innerHTML) * parseFloat(express.value);
+        document.getElementById("total").innerHTML = parseFloat(htmlSubtotal.innerHTML) + parseFloat(envioTotal.innerHTML)
     }
-   }
-  
-   // Costo de envío
-   standar.addEventListener('change', envio);
-   express.addEventListener('change', envio);
-   premium.addEventListener('change', envio);
-
-   function envio(){
-       if (standar.checked){
-           envioTotal.innerHTML = parseFloat(htmlSubtotal.innerHTML) * parseFloat(standar.value);
-           document.getElementById("total").innerHTML = parseFloat(htmlSubtotal.innerHTML) + parseFloat(envioTotal.innerHTML)
-       }
-       if (express.checked){
-            envioTotal.innerHTML = parseFloat(htmlSubtotal.innerHTML) * parseFloat(express.value);
-           document.getElementById("total").innerHTML = parseFloat(htmlSubtotal.innerHTML) + parseFloat(envioTotal.innerHTML)
-       }
-       if (premium.checked){
-            envioTotal.innerHTML = parseFloat(htmlSubtotal.innerHTML) * parseFloat(premium.value);
-           document.getElementById("total").innerHTML = parseFloat(htmlSubtotal.innerHTML) + parseFloat(envioTotal.innerHTML)
-       }
-   };
+    if (premium.checked){
+        envioTotal.innerHTML = parseFloat(htmlSubtotal.innerHTML) * parseFloat(premium.value);
+        document.getElementById("total").innerHTML = parseFloat(htmlSubtotal.innerHTML) + parseFloat(envioTotal.innerHTML)
+    }
+};
