@@ -76,7 +76,19 @@
       </div>
 
       <div class="container offset py-5">
-        <h2>Perfil</h2>
+        <div class="container offset py-1">
+          <div class="d-flex justify-content-between align-items-center">
+            <h2>Perfil</h2>
+            <img
+              id="imagen-de-perfil"
+              class="img-thumbnail rounded float-end"
+              alt="Imagen de Perfil"
+              src="./img/profile-picture-default.png"
+              width="175vh"
+              height="175vw"
+            />
+          </div>
+        </div>
         <hr />
         <form>
           <div class="row">
@@ -88,7 +100,12 @@
               </label>
               <input class="form-control" type="text" id="lastname1" />
               <label class="form-label" for="email">Email</label>
-              <input class="form-control" type="text" id="email" />
+              <input
+                class="form-control"
+                type="text"
+                id="email"
+                autocomplete="off"
+              />
               <label class="form-label" for="number"
                 >Telefono de contacto*
               </label>
@@ -101,9 +118,11 @@
                 >Segundo apellido
               </label>
               <input class="form-control" type="text" id="lastname2" />
-              <label class="form-label" for="image">Imagen de perfil</label>
+              <label class="form-label" for="image-input"
+                >Imagen de perfil</label
+              >
               <div class="input-group mb-3">
-                <input type="file" class="form-control" id="image" />
+                <input type="file" class="form-control" id="image-input" />
               </div>
             </div>
           </div>
