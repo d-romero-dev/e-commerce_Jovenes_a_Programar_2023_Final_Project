@@ -79,14 +79,31 @@ document.addEventListener("DOMContentLoaded", function () {
   //Se cambia la imagen de perfil mostrada al cambiar el elemento input de "Imagen de Perfil".
 
   imageInput.addEventListener("change", function () {
-    if (imageInput.files && imageInput.files[0]) {
-      let newImage = imageInput.files[0];
-      const imageURL = URL.createObjectURL(newImage);
 
-      localStorage.setItem("profileImage", imageURL);
-      profileImage.src = imageURL;
+    // Se obtiene el primer archivo seleccionado por el Usuario:
+    // Se verifica si existe imageInput.files y si tiene al menos un archivo.
 
-      alert("Imagen cambiada con Éxito!");
+    const newImage = imageInput.files && imageInput.files[0];
+
+    
+    //Se verifica si newImage tiene valor, si lo tiene , el Usuario habra seleccionado un archivo.
+    if (newImage) {
+
+      const reader = new FileReader(); //Se genera una instancia del objeto FileReader para leer el contenido de archivos.
+
+      reader.onload = function (e) { // Manejador de Eventos: Cuando FileReader haya cargado el contenido de la imagen.
+
+        const base64Image = e.target.result;  //e: evento ocurrido "load"- target: objetivo del evento: "FileReader" -result: contiene la representación en formato Base64 de la imagen.
+      
+        localStorage.setItem("profileImage", base64Image);
+        profileImage.src = base64Image;
+
+        alert("Imagen cambiada con Éxito!");
+      };
+
+      reader.readAsDataURL(newImage);
     }
   });
 });
+
+
