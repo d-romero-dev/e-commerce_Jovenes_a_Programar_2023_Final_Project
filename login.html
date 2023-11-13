@@ -28,7 +28,7 @@
         <div class="inicioDeSesion__tarjeta">
           <h4 class="h4 text-center">Login</h4>
           <!--Elementos de la funcion Login-->
-          <form class="form-group login">
+          <form id="formularioLogin" class="form-group login" novalidate>
             <div class="mb-3">
               <label for="user">Email: </label
               ><input
@@ -39,6 +39,8 @@
                 placeholder="Ingrese su usuario..."
                 required
               />
+              <div class="valid-feedback">Valido</div>
+              <div class="invalid-feedback">Ingresa un correo valido</div>
             </div>
             <div class="mb-3">
               <label for="pass">Contraseña: </label
@@ -51,7 +53,7 @@
                 required
               />
             </div>
-            <button type="button" class="btn btn-primary" id="login">
+            <button type="submit" class="btn btn-primary" id="login">
               -Iniciar Sesión-
             </button>
           </form>
