@@ -63,8 +63,15 @@ if (datosGuardados) {
 // y se almacena en localStorage un objeto contenedor de la nueva imagen.
 
 document.addEventListener("DOMContentLoaded", function () {
+  const emailInput = document.getElementById("email");
   const imageInput = document.getElementById("image-input");
   const profileImage = document.getElementById("imagen-de-perfil");
+
+  // Cargar el email del usuario del localStorage
+  const userEmail = localStorage.getItem("user");
+  if (userEmail) {
+    emailInput.value = userEmail;
+  }
 
   //Obtener la imagen guardada en localStore al recargar la página.
 

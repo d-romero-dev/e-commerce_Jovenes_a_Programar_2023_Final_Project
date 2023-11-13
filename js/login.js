@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
     window.location.href = 'index.html';
   }
 
-  document.getElementById('login').addEventListener('click', function () {
+  document.getElementById('login').addEventListener('click', async function () {
     ingresar();
   });
 });
@@ -66,9 +66,3 @@ function setUserIsLogged(isLogged) {
   // Doble negación para evita asignar algo que no sea Bool
   localStorage.setItem('userIsLogged', !!isLogged);
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById('login').addEventListener('click', async function () {
-    ingresar();
-  });
-});
