@@ -513,13 +513,20 @@ button {
   border-style: solid;
   border-width: 2px;
 }
+
 .inicioDeSesion__tarjeta h4 {
   margin-bottom: 3rem;
 }
+
 .inicioDeSesion__tarjeta div label {
   padding: 0 0.75rem;
 }
 
 .inicioDeSesion__tarjeta div .form-control {
   border-color: var(--bs-cyan);
+}
+
+td>input.form-control {
+  width: fit-content;
+  min-width: 50%;
 }
