@@ -42,8 +42,34 @@ document.addEventListener('DOMContentLoaded', function () {
     window.location.href = 'index.html';
   }
 
-  document.getElementById('login').addEventListener('click', async function () {
-    ingresar();
+  // document.getElementById('login').addEventListener('click', async function () {
+  //   /**
+  //    * @type {HTMLFormElement}
+  //    */
+  //   const formularioLogin = document.getElementById('formularioLogin');
+  //   if (formularioLogin.checkValidity()) ingresar();
+  // });
+
+  /**
+   * @type {HTMLFormElement}
+   */
+  const formularioLogin = document.getElementById('formularioLogin');
+
+  formularioLogin.addEventListener('submit', function (event) {
+    if (!formularioLogin.checkValidity()) {
+      event.preventDefault();
+      event.stopPropagation();
+    } else {
+      ingresar();
+    }
+    event.preventDefault();
+
+    formularioLogin.classList.add('was-validated');
+
+    if (document.getElementById('form').checkValidity()) {
+      event.preventDefault();
+      showAlertSuccess();
+    }
   });
 });
 
