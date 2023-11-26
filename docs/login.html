@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Login eMercado - Todo lo que busques está aquí</title>
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i"
+      rel="stylesheet"
+    />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.0/dist/sweetalert2.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.0/dist/sweetalert2.all.min.js"></script>
+  </head>
+
+  <body class="vh-100 vw-100 d-flex">
+    <main class="pb-5 flex-grow-1 bg-lineas-vectoriales">
+      <div class="container h-100 d-flex flex-column justify-content-center">
+        <div class="inicioDeSesion__tarjeta">
+          <h4 class="h4 text-center">Login</h4>
+          <!--Elementos de la funcion Login-->
+          <form id="formularioLogin" class="form-group login" novalidate>
+            <div class="mb-3">
+              <label for="user">Email: </label
+              ><input
+                class="w-100 form-control"
+                type="email"
+                id="user"
+                name="user"
+                placeholder="Ingrese su usuario..."
+                required
+              />
+              <div class="valid-feedback">Valido</div>
+              <div class="invalid-feedback">Ingresa un correo valido</div>
+            </div>
+            <div class="mb-3">
+              <label for="pass">Contraseña: </label
+              ><input
+                class="w-100 form-control"
+                type="password"
+                id="pass"
+                name="pass"
+                placeholder="Ingrese su contraseña..."
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary" id="login">
+              -Iniciar Sesión-
+            </button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container fixed-bottom">
+        <p class="float-end">
+          <a href="#">Volver arriba</a>
+        </p>
+        <p>
+          Este sitio forma parte de
+          <a href="https://jovenesaprogramar.edu.uy/" target="_blank"
+            >Jovenes a Programar</a
+          >
+        </p>
+      </div>
+    </footer>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/login.js"></script>
+  </body>
+</html>
