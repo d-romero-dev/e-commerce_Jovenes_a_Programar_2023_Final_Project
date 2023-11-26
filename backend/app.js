@@ -2,7 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const port = 3000;
+
 const jwt = require('jsonwebtoken');
+const secret_key = 'clave secreta';
 
 app.use(express.json());
 app.use(cors());
@@ -93,13 +95,12 @@ app.get('/emercado-api/cart/buy.json', (req, res) => {
 app.post('/emercado-api/login', (req, res) => {
   const { username, password } = req.body;
   if (username !== null && password !== null) {
-    // const token = jwt.sign ({username}, ? );
-    //res.status(200).json({ token });
-    return res.json({ mensaje: 'Inicio de sesion exitoso' });
+    const token = jwt.sign({ username }, secret_key);
+    res.status(200).json({ token: token, mensaje: 'Inicio de sesion exitoso' });
   } else {
-    return res
-      .status(401)
-      .json({ mensaje: 'Usuario o contraseña incorrectos' });
+    res.status(401).json({ mensaje: 'Usuario o contraseña incorrectos' });
+  }
+});
   }
 });
 
