@@ -1,6 +1,12 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const port = 3000;
+
+app.use(cors());
+// app.use(express.json())
+
+// const jwt = require('jsonwebtoken');
 
 const fs = require('fs');
 
@@ -70,13 +76,30 @@ app.get('/emercado-api/cats/products_comments/:idProducto', (req, res) => {
 });
 
 // CART_INFO_URL
-app.get('/emercado-api/user_cart/', (req, res) => {
-  res.send(readJsonFileSync('./json/user_cart/25801.json'));
+app.get('/emercado-api/user_cart/:idUserCart', (req, res) => {
+  res.send(
+    readJsonFileSync('./json/user_cart/' + req.params.idUserCart + '.json')
+  );
 });
 
 // CART_BUY_URL
 app.get('/emercado-api/cart/buy.json', (req, res) => {
   res.send(readJsonFileSync('./json/cart/buy.json'));
+});
+
+// Endpoint /login
+
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  if (username !== null && password !== null) {
+    // const token = jwt.sign ({username}, ? );
+    //res.status(200).json({ token });
+    return res.json({ mensaje: 'Inicio de sesion exitoso' });
+  } else {
+    return res
+      .status(401)
+      .json({ mensaje: 'Usuario o contraseña incorrectos' });
+  }
 });
 
 app.listen(port, () => {

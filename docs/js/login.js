@@ -66,9 +66,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     formularioLogin.classList.add('was-validated');
 
-    if (document.getElementById('form').checkValidity()) {
+    if (document.getElementById('formularioLogin').checkValidity()) {
       event.preventDefault();
-      showAlertSuccess();
     }
   });
 });
