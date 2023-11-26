@@ -11,6 +11,7 @@
   "author": "subgrupo 6 - grupo 255",
   "license": "ISC",
   "dependencies": {
-    "express": "4.18.2"
+    "express": "4.18.2",
+    "jsonwebtoken": "9.0.2"
   }
 }
