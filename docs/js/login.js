@@ -42,14 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
     window.location.href = 'index.html';
   }
 
-  // document.getElementById('login').addEventListener('click', async function () {
-  //   /**
-  //    * @type {HTMLFormElement}
-  //    */
-  //   const formularioLogin = document.getElementById('formularioLogin');
-  //   if (formularioLogin.checkValidity()) ingresar();
-  // });
-
   /**
    * @type {HTMLFormElement}
    */

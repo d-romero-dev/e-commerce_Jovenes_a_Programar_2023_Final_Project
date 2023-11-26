@@ -2,9 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const port = 3000;
+const jwt = require('jsonwebtoken');
 
+app.use(express.json());
 app.use(cors());
-// app.use(express.json())
 
 // const jwt = require('jsonwebtoken');
 
@@ -89,7 +90,7 @@ app.get('/emercado-api/cart/buy.json', (req, res) => {
 
 // Endpoint /login
 
-app.post('/login', (req, res) => {
+app.post('/emercado-api/login', (req, res) => {
   const { username, password } = req.body;
   if (username !== null && password !== null) {
     // const token = jwt.sign ({username}, ? );
