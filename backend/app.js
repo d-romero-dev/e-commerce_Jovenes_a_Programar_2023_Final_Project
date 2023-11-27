@@ -78,6 +78,17 @@ app.get('/emercado-api/cats/products_comments/:idProducto', (req, res) => {
   );
 });
 
+app.use('/emercado-api/user_cart/*', (req, res, next) => {
+  try {
+    console.log(req.headers['access-token']);
+    let decoded = jwt.verify(req.headers['access-token'], secret_key);
+    console.log(decoded);
+    next();
+  } catch (err) {
+    res.status(401).json({ mensaje: 'Usuario no autorizado' });
+  }
+});
+
 // CART_INFO_URL
 app.get('/emercado-api/user_cart/:idUserCart', (req, res) => {
   res.send(
@@ -99,8 +110,6 @@ app.post('/emercado-api/login', (req, res) => {
     res.status(200).json({ token: token, mensaje: 'Inicio de sesion exitoso' });
   } else {
     res.status(401).json({ mensaje: 'Usuario o contraseña incorrectos' });
-  }
-});
   }
 });
 
