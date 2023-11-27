@@ -9,8 +9,6 @@ const secret_key = 'clave secreta';
 app.use(express.json());
 app.use(cors());
 
-// const jwt = require('jsonwebtoken');
-
 const fs = require('fs');
 
 function readJsonFileSync(filepath, encoding) {
@@ -22,22 +20,27 @@ function readJsonFileSync(filepath, encoding) {
   return JSON.parse(file);
 }
 
-// const CATEGORIES_URL = 'https://japceibal.github.io/emercado-api/cats/cat.json';
+function writeJsonFileSync(filepath, data) {
+  if (typeof encoding == 'undefined') {
+    encoding = 'utf8';
+  }
 
-// const PUBLISH_PRODUCT_URL = https://japceibal.github.io/emercado-api/sell/publish.json';
+  fs.writeFileSync(filepath, data, encoding);
+}
 
-// const PRODUCTS_URL = 'https://japceibal.github.io/emercado-api/cats_products/';
-
-// const PRODUCT_INFO_URL = 'https://japceibal.github.io/emercado-api/products/';
-
-// const PRODUCT_INFO_COMMENTS_URL ='https://japceibal.github.io/emercado-api/products_comments/';
-
-// const CART_INFO_URL = 'https://japceibal.github.io/emercado-api/user_cart/';
-
-// const CART_BUY_URL = 'https://japceibal.github.io/emercado-api/cart/buy.json';
-
-// const EXT_TYPE = '.json';
-
+function setItemsCart(idCart, articles) {
+  console.log({ idCart, articles });
+  if (!articles || !Array.isArray(articles)) {
+    return false;
+  }
+  const cart = readJsonFileSync('./json/user_cart/' + idCart + '.json');
+  cart.articles = articles;
+  writeJsonFileSync(
+    './json/user_cart/' + idCart + '.json',
+    JSON.stringify(cart)
+  );
+  return true;
+}
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
@@ -94,6 +97,19 @@ app.get('/emercado-api/user_cart/:idUserCart', (req, res) => {
   res.send(
     readJsonFileSync('./json/user_cart/' + req.params.idUserCart + '.json')
   );
+});
+
+// CART_INFO_URL
+app.post('/emercado-api/user_cart/:idUserCart', (req, res) => {
+  console.log(req.body);
+  const cambioExitoso = setItemsCart(req.params.idUserCart, req.body.articles);
+  if (cambioExitoso) {
+    res.send(
+      readJsonFileSync('./json/user_cart/' + req.params.idUserCart + '.json')
+    );
+  } else {
+    res.status(300).send({ msg: 'error al modificar carrito' });
+  }
 });
 
 // CART_BUY_URL
