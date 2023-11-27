@@ -29,18 +29,35 @@ function writeJsonFileSync(filepath, data) {
 }
 
 function setItemsCart(idCart, articles) {
-  console.log({ idCart, articles });
   if (!articles || !Array.isArray(articles)) {
     return false;
   }
+
+  // filtrar atributos de interes
+  for (let i = 0; i < articles.length; i++) {
+    const { id, name, count, unitCost, currency, image } = articles[i];
+    articles[i] = {
+      id,
+      name,
+      count,
+      unitCost,
+      currency,
+      image,
+    };
+    console.log(articles[i]);
+  }
+
   const cart = readJsonFileSync('./json/user_cart/' + idCart + '.json');
   cart.articles = articles;
+
   writeJsonFileSync(
     './json/user_cart/' + idCart + '.json',
     JSON.stringify(cart)
   );
+
   return true;
 }
+
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
