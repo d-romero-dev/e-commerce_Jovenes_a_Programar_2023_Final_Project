@@ -14,7 +14,7 @@ producto. En el e-commerce, la experiencia de usuario es un aspecto clave.
 
 
 <i>Este sitio es una herramienta generada con fines estrictamente educativos.
-No realiza compras o ventas realesa a terceros,
+No realiza compras o ventas reales a terceros,
 tampoco administra datos personales o de clientes.
 Todo lo expresado en este dominio no tiene validez comercial.</i> 
 
