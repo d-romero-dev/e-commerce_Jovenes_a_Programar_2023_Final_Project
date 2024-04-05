@@ -23,7 +23,7 @@ tampoco administra datos personales o de clientes.
 Todo lo expresado en este dominio no tiene validez comercial.*
 
 ## Autores
-**En este proyecto, las distintas carateristicas de la pagina asi como su funcionamiento e implementacionha, han sido una tarea de los y las estudiantes del subgrupo 6 de Desarrollo Web en Jóvenes a Programar 2023.**
+**En este proyecto, las distintas caraterísticas de la página, así como su funcionamiento e implementación, han sido una tarea de los y las estudiantes del Subgrupo 6, de Desarrollo Web en Jóvenes a Programar, 2023.**
 
 ***Perfiles de los co-autores:***
 - [Heltta](https://github.com/Heltta).
