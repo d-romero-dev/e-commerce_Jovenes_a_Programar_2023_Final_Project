@@ -26,8 +26,9 @@ Todo lo expresado en este dominio no tiene validez comercial.*
 **En este proyecto, las distintas caraterísticas de la página, así como su funcionamiento e implementación, han sido una tarea de los y las estudiantes del Subgrupo 6, de Desarrollo Web en Jóvenes a Programar, 2023.**
 
 ***Perfiles de los co-autores:***
-- [Heltta](https://github.com/Heltta).
+
 - [d-romero-dev](https://github.com/d-romero-dev).
+- [Heltta](https://github.com/Heltta).
 - [carolinasf23](https://github.com/carolinasf23).
 - [florencia190](https://github.com/florencia190).
 - [Franpa99](https://github.com/Franpa99).
